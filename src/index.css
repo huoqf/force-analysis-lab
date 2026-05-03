@@ -1,0 +1,37 @@
+@import "katex/dist/katex.min.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background-color: #0a0a0a;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(0, 120, 212, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(77, 148, 255, 0.1) 0px, transparent 50%);
+  color: white;
+  overflow-x: hidden;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-win11-glass backdrop-blur-xl border border-win11-border rounded-xl;
+  }
+  
+  .win11-button {
+    @apply bg-win11-blue hover:brightness-110 active:scale-95 text-white px-4 py-2 rounded-md transition-all;
+  }
+
+  .nav-item {
+    @apply px-4 py-2 rounded-lg transition-colors hover:bg-white/10 text-white/70 hover:text-white;
+  }
+
+  .nav-item-active {
+    @apply bg-white/10 text-win11-blue border-l-2 border-win11-blue;
+  }
+}
