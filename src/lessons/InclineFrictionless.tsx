@@ -130,10 +130,10 @@ const InclineFrictionless: React.FC<{ onBack: () => void }> = ({ onBack }) => {
               <ForceArrow x={0} y={0} magnitude={gNormal} angle={270 - angle} color="#4d94ff" label={`N`} />
 
               {/* 重力分解：沿斜面向下分力 G1 (向左下 180-angle 度) */}
-              <ForceArrow x={0} y={0} magnitude={gParallel} angle={180 - angle} color="#ff9f4d" label={`G1(分力)`} scale={1.5} dashed />
+              <ForceArrow x={0} y={0} magnitude={gParallel} angle={180 - angle} color="#ff9f4d" label={`G_1(分力)`} scale={1.5} dashed />
               
               {/* 重力分解：垂直斜面向下分力 G2 (向右下 90-angle 度) */}
-              <ForceArrow x={0} y={0} magnitude={gNormal} angle={90 - angle} color="#ff9f4d" label={`G2(分力)`} scale={1.5} dashed />
+              <ForceArrow x={0} y={0} magnitude={gNormal} angle={90 - angle} color="#ff9f4d" label={`G_2(分力)`} scale={1.5} dashed />
             </g>
           </FreeBodyDiagram>
         </div>

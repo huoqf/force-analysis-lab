@@ -46,3 +46,102 @@ export const calculateInclineAccel = (angleDegrees: number): number => {
 export const formatPhysicsValue = (val: number): string => {
   return val.toFixed(2);
 };
+
+/**
+ * 水平面受力与摩擦力状态计算
+ * @param mass 质量 (kg)
+ * @param mu 动摩擦因数
+ * @param appliedForce 外力 (N，向右为正)
+ * @returns 摩擦力, 支持力, 加速度等
+ */
+export const calculateHorizontalPhysics = (mass: number, mu: number, appliedForce: number) => {
+  const weight = calculateWeight(mass);
+  const normalForce = weight; // 纯水平受力，支持力等于重力
+  
+  // 为基础模型简化，设最大静摩擦力等于滑动摩擦力
+  const maxFriction = mu * normalForce;
+  
+  let frictionForce = 0;
+  let accel = 0;
+  
+  if (Math.abs(appliedForce) <= maxFriction) {
+    // 静止状态
+    frictionForce = -appliedForce; // 摩擦力抵消外力
+    accel = 0;
+  } else {
+    // 滑动状态
+    const direction = Math.sign(appliedForce);
+    frictionForce = -direction * maxFriction; // 摩擦力方向与相对运动(即外力方向)相反
+    accel = (appliedForce + frictionForce) / mass;
+  }
+  
+  return {
+    normalForce,
+    frictionForce,
+    maxFriction,
+    accel,
+    weight
+  };
+};
+
+/**
+ * 粗糙斜面受力与摩擦力状态计算
+ * @param mass 质量 (kg)
+ * @param angleDegrees 倾角 (度)
+ * @param muStatic 静摩擦因数
+ * @param muKinetic 动摩擦因数
+ * @param hasInitialVelocity 是否有沿斜面向下的初速度
+ */
+export const calculateRoughInclinePhysics = (
+  mass: number, 
+  angleDegrees: number, 
+  muStatic: number, 
+  muKinetic: number,
+  hasInitialVelocity: boolean = false
+) => {
+  const weight = calculateWeight(mass);
+  const angleRad = (angleDegrees * Math.PI) / 180;
+  
+  const gParallel = weight * Math.sin(angleRad); // 下滑分力 G1
+  const gNormal = weight * Math.cos(angleRad);   // 垂直分力 G2
+  const normalForce = gNormal;                   // 支持力 N
+  
+  const maxStaticFriction = muStatic * normalForce;
+  const kineticFriction = muKinetic * normalForce;
+  
+  let isSliding = false;
+  let frictionForce = 0;
+  let accel = 0;
+  
+  if (hasInitialVelocity) {
+    // 有初速度，必然受到动摩擦力（假设方向沿斜面向下）
+    isSliding = true;
+    frictionForce = kineticFriction;
+    accel = (gParallel - frictionForce) / mass;
+  } else {
+    // 初速度为0，看下滑力是否能突破最大静摩擦力
+    // 临界点判断加入一个小容差处理浮点数问题
+    if (gParallel > maxStaticFriction + 1e-6) {
+      isSliding = true;
+      frictionForce = kineticFriction; // 突破后变为动摩擦力
+      accel = (gParallel - frictionForce) / mass;
+    } else {
+      isSliding = false;
+      frictionForce = gParallel; // 静摩擦力等于下滑分力
+      accel = 0;
+    }
+  }
+  
+  return {
+    gParallel,
+    gNormal,
+    normalForce,
+    maxStaticFriction,
+    kineticFriction,
+    frictionForce,
+    isSliding,
+    accel,
+    weight
+  };
+};
+

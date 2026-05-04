@@ -27,6 +27,34 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       desc: '学习重力的正交分解，理解分力与加速度的关系。',
       icon: <Activity className="text-emerald-400" />,
       color: 'from-emerald-500/20 to-emerald-600/5'
+    },
+    {
+      id: 'rough-horizontal',
+      title: '粗糙水平面模型',
+      desc: '探索摩擦力与外力的动态关系，学习滑动与静止状态。',
+      icon: <Activity className="text-amber-400" />,
+      color: 'from-amber-500/20 to-amber-600/5'
+    },
+    {
+      id: 'rough-incline',
+      title: '斜面摩擦模型',
+      desc: '进阶：重力正交分解与双摩擦系数临界角分析。',
+      icon: <Activity className="text-rose-400" />,
+      color: 'from-rose-500/20 to-rose-600/5'
+    },
+    {
+      id: 'connected-horizontal',
+      title: '双物体连接模型',
+      desc: '掌握整体法与隔离法，理解内力与外力的区别。',
+      icon: <Activity className="text-pink-400" />,
+      color: 'from-pink-500/20 to-pink-600/5'
+    },
+    {
+      id: 'connected-pulley',
+      title: '桌面悬挂滑轮模型',
+      desc: '理解跨滑轮系统加速度约束与失重状态下的张力。',
+      icon: <Activity className="text-indigo-400" />,
+      color: 'from-indigo-500/20 to-indigo-600/5'
     }
   ];
 

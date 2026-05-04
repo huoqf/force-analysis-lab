@@ -3,6 +3,10 @@ import Home from './lessons/Home';
 import SevenSteps from './lessons/SevenSteps';
 import HorizontalStatic from './lessons/HorizontalStatic';
 import InclineFrictionless from './lessons/InclineFrictionless';
+import RoughHorizontal from './lessons/RoughHorizontal';
+import RoughIncline from './lessons/RoughIncline';
+import ConnectedHorizontal from './lessons/ConnectedHorizontal';
+import ConnectedPulley from './lessons/ConnectedPulley';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -17,6 +21,14 @@ function App() {
         return <HorizontalStatic onBack={() => setCurrentPage('home')} />;
       case 'incline-frictionless':
         return <InclineFrictionless onBack={() => setCurrentPage('home')} />;
+      case 'rough-horizontal':
+        return <RoughHorizontal onBack={() => setCurrentPage('home')} />;
+      case 'rough-incline':
+        return <RoughIncline onBack={() => setCurrentPage('home')} />;
+      case 'connected-horizontal':
+        return <ConnectedHorizontal onBack={() => setCurrentPage('home')} />;
+      case 'connected-pulley':
+        return <ConnectedPulley onBack={() => setCurrentPage('home')} />;
       default:
         return <Home onNavigate={setCurrentPage} />;
     }
