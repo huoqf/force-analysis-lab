@@ -7,6 +7,7 @@ import RoughHorizontal from './lessons/RoughHorizontal';
 import RoughIncline from './lessons/RoughIncline';
 import ConnectedHorizontal from './lessons/ConnectedHorizontal';
 import ConnectedPulley from './lessons/ConnectedPulley';
+import ConnectedTriple from './lessons/ConnectedTriple';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -29,6 +30,8 @@ function App() {
         return <ConnectedHorizontal onBack={() => setCurrentPage('home')} />;
       case 'connected-pulley':
         return <ConnectedPulley onBack={() => setCurrentPage('home')} />;
+      case 'connected-triple':
+        return <ConnectedTriple onBack={() => setCurrentPage('home')} />;
       default:
         return <Home onNavigate={setCurrentPage} />;
     }

@@ -55,6 +55,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       desc: '理解跨滑轮系统加速度约束与失重状态下的张力。',
       icon: <Activity className="text-indigo-400" />,
       color: 'from-indigo-500/20 to-indigo-600/5'
+    },
+    {
+      id: 'connected-triple',
+      title: '三物体连接模型',
+      desc: '综合：用整体法求加速度，用局部整体法分析 T₁ ≠ T₂ 的原因。',
+      icon: <Activity className="text-amber-400" />,
+      color: 'from-amber-500/20 to-amber-600/5'
     }
   ];
 
