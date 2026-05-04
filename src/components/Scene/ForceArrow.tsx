@@ -8,10 +8,11 @@ interface ForceArrowProps {
   color: string;
   label: string;
   scale?: number;
+  dashed?: boolean;
 }
 
 const ForceArrow: React.FC<ForceArrowProps> = ({ 
-  x, y, magnitude, angle, color, label, scale = 2 
+  x, y, magnitude, angle, color, label, scale = 2, dashed = false 
 }) => {
   const length = Math.max(magnitude * scale, 30); // 最小长度保证可见
   const angleRad = (angle * Math.PI) / 180;
@@ -32,6 +33,7 @@ const ForceArrow: React.FC<ForceArrowProps> = ({
       <line 
         x1={x} y1={y} x2={endX} y2={endY} 
         stroke={color} strokeWidth="3" strokeLinecap="round" 
+        strokeDasharray={dashed ? "5,5" : "none"}
       />
       {/* 箭头尖端 */}
       <path 
