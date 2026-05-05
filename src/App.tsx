@@ -10,6 +10,11 @@ import ConnectedPulley from './lessons/ConnectedPulley';
 import ConnectedTriple from './lessons/ConnectedTriple';
 import Atwood from './lessons/Atwood';
 import MovingPulley from './lessons/MovingPulley';
+import CircularHorizontal from './lessons/CircularHorizontal';
+import ConicalPendulum from './lessons/ConicalPendulum';
+import VerticalCircular from './lessons/VerticalCircular';
+import ArchBridge from './lessons/ArchBridge';
+import ConcaveBridge from './lessons/ConcaveBridge';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -38,6 +43,16 @@ function App() {
         return <Atwood onBack={() => setCurrentPage('home')} />;
       case 'moving-pulley':
         return <MovingPulley onBack={() => setCurrentPage('home')} />;
+      case 'circular-horizontal':
+        return <CircularHorizontal onBack={() => setCurrentPage('home')} />;
+      case 'conical-pendulum':
+        return <ConicalPendulum onBack={() => setCurrentPage('home')} />;
+      case 'vertical-circular':
+        return <VerticalCircular onBack={() => setCurrentPage('home')} />;
+      case 'arch-bridge':
+        return <ArchBridge onBack={() => setCurrentPage('home')} />;
+      case 'concave-bridge':
+        return <ConcaveBridge onBack={() => setCurrentPage('home')} />;
       default:
         return <Home onNavigate={setCurrentPage} />;
     }

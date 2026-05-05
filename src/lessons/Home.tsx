@@ -76,6 +76,41 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       desc: '探索省力不省功的原理，分析绳端拉力与物体重力的平衡关系。',
       icon: <Activity className="text-rose-400" />,
       color: 'from-rose-500/20 to-rose-600/5'
+    },
+    {
+      id: 'circular-horizontal',
+      title: '水平圆周运动',
+      desc: '圆周运动入门：绳子拉力充当向心力，动态显示公式推导。',
+      icon: <Activity className="text-purple-400" />,
+      color: 'from-purple-500/20 to-purple-600/5'
+    },
+    {
+      id: 'conical-pendulum',
+      title: '圆锥摆',
+      desc: '深入受力分析：绳子拉力的水平分量提供向心力，竖直分量平衡重力。',
+      icon: <Activity className="text-blue-400" />,
+      color: 'from-blue-500/20 to-blue-600/5'
+    },
+    {
+      id: 'vertical-circular',
+      title: '竖直圆周运动 (轨道)',
+      desc: '分析最高点与最低点的受力：向心力由径向合力提供，体验临界速度。',
+      icon: <Activity className="text-pink-400" />,
+      color: 'from-pink-500/20 to-pink-600/5'
+    },
+    {
+      id: 'arch-bridge',
+      title: '汽车过拱桥',
+      desc: '经典应用模型：速度越快支持力越小，理解运动导致的“失重”现象。',
+      icon: <Activity className="text-emerald-400" />,
+      color: 'from-emerald-500/20 to-emerald-600/5'
+    },
+    {
+      id: 'concave-bridge',
+      title: '汽车过凹桥',
+      desc: '经典应用模型：合力向上提供向心力，理解为什么凹桥底部会“超重”。',
+      icon: <Activity className="text-amber-400" />,
+      color: 'from-amber-500/20 to-amber-600/5'
     }
   ];
 
