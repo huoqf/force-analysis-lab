@@ -62,6 +62,20 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       desc: '综合：用整体法求加速度，用局部整体法分析 T₁ ≠ T₂ 的原因。',
       icon: <Activity className="text-amber-400" />,
       color: 'from-amber-500/20 to-amber-600/5'
+    },
+    {
+      id: 'atwood',
+      title: '阿特伍德机',
+      desc: '经典滑轮装置：整体法求加速度，隔离法推导绳子张力，体会失重与超重。',
+      icon: <Activity className="text-cyan-400" />,
+      color: 'from-cyan-500/20 to-cyan-600/5'
+    },
+    {
+      id: 'moving-pulley',
+      title: '动滑轮模型',
+      desc: '探索省力不省功的原理，分析绳端拉力与物体重力的平衡关系。',
+      icon: <Activity className="text-rose-400" />,
+      color: 'from-rose-500/20 to-rose-600/5'
     }
   ];
 

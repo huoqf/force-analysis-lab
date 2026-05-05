@@ -8,6 +8,8 @@ import RoughIncline from './lessons/RoughIncline';
 import ConnectedHorizontal from './lessons/ConnectedHorizontal';
 import ConnectedPulley from './lessons/ConnectedPulley';
 import ConnectedTriple from './lessons/ConnectedTriple';
+import Atwood from './lessons/Atwood';
+import MovingPulley from './lessons/MovingPulley';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -32,6 +34,10 @@ function App() {
         return <ConnectedPulley onBack={() => setCurrentPage('home')} />;
       case 'connected-triple':
         return <ConnectedTriple onBack={() => setCurrentPage('home')} />;
+      case 'atwood':
+        return <Atwood onBack={() => setCurrentPage('home')} />;
+      case 'moving-pulley':
+        return <MovingPulley onBack={() => setCurrentPage('home')} />;
       default:
         return <Home onNavigate={setCurrentPage} />;
     }
