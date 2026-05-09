@@ -8,13 +8,42 @@
     { "label": "根据受力图说明向心加速度大小", "target": "向心加速度推导" }
   ],
   "judgeRules": [
+    {
+      "expect": "必须画出重力",
+      "hintWhenWrong": "物体在任何位置都受重力作用，最高点也不例外，重力竖直向下",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Gravity"
+      },
+      "appliesTo": "最高点受力图"
+    },
+    {
+      "expect": "重力方向应竖直向下（270°）",
+      "hintWhenWrong": "重力方向始终竖直向下，与物体所在位置和运动状态无关",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": {
+        "forceType": "Gravity",
+        "expectedAngle": 270
+      },
+      "appliesTo": "最高点受力图"
+    },
     { 
-      "expect": "只画重力 G，不能画轨道支持力", 
-      "hintWhenWrong": "恰好到达最高点时为临界状态，轨道对物体弹力恰好为零，不存在支持力" 
+      "expect": "不能画轨道支持力", 
+      "hintWhenWrong": "恰好到达最高点时为临界状态，轨道对物体弹力恰好为零，不存在支持力",
+      "ruleType": "FORCE_ABSENT",
+      "ruleParams": {
+        "forceType": "Normal"
+      },
+      "appliesTo": "最高点受力图"
     },
     { 
       "expect": "不能将\"向心力\"作为一个独立的力画出", 
-      "hintWhenWrong": "向心力不是一种独立真实力，它是重力（此处）指向圆心的合力效果" 
+      "hintWhenWrong": "向心力不是一种独立真实力，它是重力（此处）指向圆心的合力效果",
+      "ruleType": "NO_FAKE_FORCE",
+      "ruleParams": {
+        "fakeNames": ["向心力", "CentripetalForce"]
+      },
+      "appliesTo": "最高点受力图"
     }
   ],
   "analysis": "最高点由重力提供向心效果，mg=m\\frac{v^2}{r}，所以 a_n=g，速度不为零。",

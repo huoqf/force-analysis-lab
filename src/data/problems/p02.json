@@ -8,8 +8,70 @@
     { "label": "再画“与传送带共同匀速后”的受力图", "target": "物体受力图(平衡阶段)" }
   ],
   "judgeRules": [
-    { "expect": "刚放上去时，受力应包括重力 G、支持力 N、沿传送带运动方向的滑动摩擦力 f", "hintWhenWrong": "摩擦力阻碍相对运动，不一定阻碍对地运动" },
-    { "expect": "共同匀速后，只受重力和支持力，不应再画摩擦力", "hintWhenWrong": "此时物体与传送带速度相同，既无相对运动也无相对运动趋势，摩擦力为零" }
+    {
+      "expect": "刚放上去时，应画出重力",
+      "hintWhenWrong": "漏画了重力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Gravity"
+      },
+      "appliesTo": "物体受力图(加速阶段)"
+    },
+    {
+      "expect": "刚放上去时，应画出支持力",
+      "hintWhenWrong": "漏画了支持力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Normal"
+      },
+      "appliesTo": "物体受力图(加速阶段)"
+    },
+    {
+      "expect": "刚放上去时，应画出滑动摩擦力",
+      "hintWhenWrong": "摩擦力阻碍相对运动，物体相对传送带向后滑，故受到摩擦力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Friction"
+      },
+      "appliesTo": "物体受力图(加速阶段)"
+    },
+    {
+      "expect": "滑动摩擦力方向应沿传送带运动方向（向前）",
+      "hintWhenWrong": "摩擦力阻碍相对运动，不一定阻碍对地运动，应水平向前",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": {
+        "forceType": "Friction",
+        "expectedAngle": 0
+      },
+      "appliesTo": "物体受力图(加速阶段)"
+    },
+    {
+      "expect": "共同匀速后，应画出重力",
+      "hintWhenWrong": "漏画了重力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Gravity"
+      },
+      "appliesTo": "物体受力图(平衡阶段)"
+    },
+    {
+      "expect": "共同匀速后，应画出支持力",
+      "hintWhenWrong": "漏画了支持力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Normal"
+      },
+      "appliesTo": "物体受力图(平衡阶段)"
+    },
+    {
+      "expect": "共同匀速后，不应再画摩擦力",
+      "hintWhenWrong": "此时物体与传送带速度相同，既无相对运动也无相对运动趋势，摩擦力为零",
+      "ruleType": "FORCE_ABSENT",
+      "ruleParams": {
+        "forceType": "Friction"
+      },
+      "appliesTo": "物体受力图(平衡阶段)"
+    }
   ],
   "analysis": "刚放上去时物体速度小于传送带，物体相对传送带向后滑，因此摩擦力向前；共同匀速后无相对运动趋势，摩擦力为零。",
   "trainingTags": ["相对运动", "摩擦力方向", "滑动摩擦与静摩擦", "有无摩擦的判断"],

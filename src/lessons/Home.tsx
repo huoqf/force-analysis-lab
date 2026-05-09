@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Activity, Info, ChevronRight } from 'lucide-react';
+import { BookOpen, Activity, Info, ChevronRight, Zap, RotateCw, Share2, Layers, MoveRight, Boxes } from 'lucide-react';
 
 interface HomeProps {
   onNavigate: (page: string) => void;
@@ -111,6 +111,62 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       desc: '经典应用模型：合力向上提供向心力，理解为什么凹桥底部会“超重”。',
       icon: <Activity className="text-amber-400" />,
       color: 'from-amber-500/20 to-amber-600/5'
+    },
+    {
+      id: 'p04-vertical-lift',
+      title: '综合题：竖直提升重物',
+      desc: '结合引擎判别：匀速与加速提升阶段的受力分析。',
+      icon: <BookOpen className="text-blue-400" />,
+      color: 'from-blue-500/20 to-blue-600/5'
+    },
+    {
+      id: 'p07-incline-slide-up',
+      title: '综合题：斜面上滑模型',
+      desc: '受力分析进阶：处理斜面上的滑动摩擦力与正交坐标系建立。',
+      icon: <BookOpen className="text-emerald-400" />,
+      color: 'from-emerald-500/20 to-emerald-600/5'
+    },
+    {
+      id: 'p06-electric-deflection',
+      title: '综合题：电场偏转平衡',
+      desc: '复用圆锥摆几何逻辑，分析库仑力作用下的三力平衡。',
+      icon: <Zap className="text-yellow-400" />,
+      color: 'from-yellow-500/20 to-yellow-600/5'
+    },
+    {
+      id: 'p03-vertical-circle-top',
+      title: '综合题：圆周最高点临界',
+      desc: '深入理解临界态：恰好通过最高点时支持力的消失与效果力区分。',
+      icon: <RotateCw className="text-rose-400" />,
+      color: 'from-rose-500/20 to-rose-600/5'
+    },
+    {
+      id: 'p01-spacecraft-docking',
+      title: '综合题：飞船对接相互作用',
+      desc: '研究对象选择进阶：理解整体法与隔离法中的内力与外力。',
+      icon: <Share2 className="text-indigo-400" />,
+      color: 'from-indigo-500/20 to-indigo-600/5'
+    },
+    {
+      id: 'p05-triple-blocks',
+      title: '综合题：三物块整体与隔离',
+      desc: '多层嵌套隔离法：分析 A, B+C, 整体等不同研究对象的受力差异。',
+      icon: <Layers className="text-cyan-400" />,
+      color: 'from-cyan-500/20 to-cyan-600/5'
+    },
+    {
+      id: 'p02-conveyor-belt',
+      title: '综合题：传送带状态切换',
+      desc: '动态受力分析：识别加速阶段与匀速阶段摩擦力的有无与方向。',
+      icon: <MoveRight className="text-orange-400" />,
+      color: 'from-orange-500/20 to-orange-600/5'
+    },
+    {
+      id: 'p08-incline-pulley',
+      title: '综合题：斜面连接体模型',
+      desc: '复合物理建模：结合斜面、滑轮与连接体，通过临界条件判定摩擦力方向。',
+      icon: <Boxes className="text-blue-400" />,
+      color: 'from-blue-500/20 to-blue-600/5'
     }
   ];
 

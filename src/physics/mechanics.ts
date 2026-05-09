@@ -145,3 +145,24 @@ export const calculateRoughInclinePhysics = (
   };
 };
 
+export const calculateInclinePulleySystem = (params: Record<string, number>): Record<string, unknown> => {
+  const { mA, mB, theta, mu } = params;
+  const g = 9.8;
+  const thetaRad = (theta * Math.PI) / 180;
+  
+  const pullForce = mB * g;
+  const componentGravity = mA * g * Math.sin(thetaRad);
+  const maxStaticFriction = mu * mA * g * Math.cos(thetaRad); // 简化处理
+
+  let motionDirection: 'A_UP' | 'A_DOWN' | 'STATIC' = 'STATIC';
+  
+  if (pullForce > componentGravity + maxStaticFriction) {
+    motionDirection = 'A_UP';
+  } else if (componentGravity > pullForce + maxStaticFriction) {
+    motionDirection = 'A_DOWN';
+  } else {
+    motionDirection = 'STATIC';
+  }
+
+  return { motionDirection };
+};

@@ -8,24 +8,67 @@
   ],
   "judgeRules": [
     {
-      "expect": "重力 G 竖直向下",
-      "hintWhenWrong": "重力方向始终竖直向下，不能沿斜面分解后只画分力"
+      "expect": "必须画出重力",
+      "hintWhenWrong": "漏画了重力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Gravity" },
+      "appliesTo": "斜面物块受力图与坐标系"
     },
     {
-      "expect": "支持力 N 垂直斜面向外（法线方向）",
-      "hintWhenWrong": "支持力垂直于接触面，不是竖直向上"
+      "expect": "重力方向应竖直向下",
+      "hintWhenWrong": "重力方向始终竖直向下，不能沿斜面分解后只画分力",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": { "forceType": "Gravity", "expectedAngle": 270 },
+      "appliesTo": "斜面物块受力图与坐标系"
     },
     {
-      "expect": "外力 F 沿斜面向上",
-      "hintWhenWrong": "题目已说明恒力沿斜面向上施加"
+      "expect": "必须画出支持力",
+      "hintWhenWrong": "漏画了支持力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Normal" },
+      "appliesTo": "斜面物块受力图与坐标系"
     },
     {
-      "expect": "摩擦力 f 沿斜面向下",
-      "hintWhenWrong": "物块相对斜面向上运动，滑动摩擦力阻碍相对运动，方向沿斜面向下"
+      "expect": "支持力方向应垂直斜面向外",
+      "hintWhenWrong": "支持力垂直于接触面，不是竖直向上",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": { "forceType": "Normal", "relativeTo": "Surface", "isPerpendicular": true },
+      "appliesTo": "斜面物块受力图与坐标系"
     },
     {
-      "expect": "坐标轴 x 轴沿斜面方向，y 轴垂直斜面方向",
-      "hintWhenWrong": "斜面问题建议沿斜面建立坐标系，可避免重力分解引入额外计算步骤"
+      "expect": "必须画出外力 F",
+      "hintWhenWrong": "漏画了外力 F",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Applied" },
+      "appliesTo": "斜面物块受力图与坐标系"
+    },
+    {
+      "expect": "外力 F 方向应沿斜面向上",
+      "hintWhenWrong": "题目已说明恒力沿斜面向上施加",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": { "forceType": "Applied", "relativeTo": "Surface", "isAlongSurface": true, "directionSense": 1 },
+      "appliesTo": "斜面物块受力图与坐标系"
+    },
+    {
+      "expect": "必须画出摩擦力",
+      "hintWhenWrong": "漏画了摩擦力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Friction" },
+      "appliesTo": "斜面物块受力图与坐标系"
+    },
+    {
+      "expect": "摩擦力方向应沿斜面向下",
+      "hintWhenWrong": "物块相对斜面向上运动，滑动摩擦力沿斜面向下",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": { "forceType": "Friction", "relativeTo": "Surface", "isAlongSurface": true, "directionSense": -1 },
+      "appliesTo": "斜面物块受力图与坐标系"
+    },
+    {
+      "expect": "坐标轴 x 沿斜面，y 垂直斜面",
+      "hintWhenWrong": "斜面问题建议沿斜面建立坐标系，可避免重力分解引入额外计算步骤",
+      "ruleType": "COORDINATE_CHECK",
+      "ruleParams": { "xAlign": "Surface", "yAlign": "Normal" },
+      "appliesTo": "斜面物块受力图与坐标系"
     }
   ],
   "analysis": "垂直斜面方向 N=mgcosθ，沿斜面方向 F=mgsinθ+μmgcosθ。",

@@ -4,17 +4,129 @@
   "source": "高考常见连接体模型，参考 2024 北京八一学校高三月考题型。",
   "scenario": "水平面上有三个相同物块 A、B、C，在水平推力 F 作用下一起向右加速，三个物块与水平面间动摩擦因数相同。比较 A 与 B、B 与 C 之间的作用力大小。",
   "studentTasks": [
-    { "label": "先画三个物块整体受力图", "target": "整体受力图" },
-    { "label": "再画物块 C 的受力图", "target": "物块C受力图" },
-    { "label": "再画物块 B+C 整体受力图", "target": "B+C部分整体受力图" },
-    { "label": "根据各受力图列方程，比较 F_AB 与 F_BC 的大小", "target": "接触力比较" }
+    { "label": "画三个物块整体受力图", "target": "整体受力图" },
+    { "label": "画物块 C 的受力图", "target": "物块C受力图" },
+    { "label": "画物块 B+C 整体受力图", "target": "B+C部分整体受力图" }
   ],
   "judgeRules": [
-    { "expect": "整体图中应有推力 F、总重力、总支持力、地面对三个物块的总摩擦力", "hintWhenWrong": "漏画摩擦力，每个物块都与粗糙水平面接触，均受地面摩擦" },
-    { "expect": "单独 C 图中应有 B 对 C 的推力、摩擦力、重力、支持力", "hintWhenWrong": "未完整画出C受到的所有力" },
-    { 
-      "expect": "B+C 整体图中应有 A 对 B 的推力、地面对 B 和 C 的总摩擦力、B+C 总重力、地面对 B+C 的总支持力，不应出现 B 与 C 之间的内力", 
-      "hintWhenWrong": "B+C 作为整体时，B 与 C 之间的相互作用力是内力，不列入受力图" 
+    {
+      "expect": "整体图中应有推力 F",
+      "hintWhenWrong": "漏画了外部推力 F",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Applied" },
+      "appliesTo": "整体受力图"
+    },
+    {
+      "expect": "整体图中应有总重力",
+      "hintWhenWrong": "漏画了总重力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Gravity" },
+      "appliesTo": "整体受力图"
+    },
+    {
+      "expect": "整体图中应有总支持力",
+      "hintWhenWrong": "漏画了地面对整体的总支持力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Normal" },
+      "appliesTo": "整体受力图"
+    },
+    {
+      "expect": "整体图中应有地面的总摩擦力",
+      "hintWhenWrong": "漏画摩擦力，物块均与粗糙水平面接触",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Friction" },
+      "appliesTo": "整体受力图"
+    },
+    {
+      "expect": "整体图中摩擦力方向应水平向左（180°）",
+      "hintWhenWrong": "摩擦力阻碍向右的相对运动，方向应水平向左",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": { "forceType": "Friction", "expectedAngle": 180 },
+      "appliesTo": "整体受力图"
+    },
+    {
+      "expect": "整体图中不应出现内部相互作用力",
+      "hintWhenWrong": "整体法中系统内部相互作用力不作为外力列入",
+      "ruleType": "INTERNAL_FORCE_ABSENT",
+      "ruleParams": { "systemObjects": ["A", "B", "C"] },
+      "appliesTo": "整体受力图"
+    },
+    {
+      "expect": "单独 C 图中应有 B 对 C 的推力",
+      "hintWhenWrong": "漏画了 B 对 C 的接触推力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Applied", "sourceObject": "B" },
+      "appliesTo": "物块C受力图"
+    },
+    {
+      "expect": "单独 C 图中应有重力",
+      "hintWhenWrong": "漏画了重力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Gravity" },
+      "appliesTo": "物块C受力图"
+    },
+    {
+      "expect": "单独 C 图中应有支持力",
+      "hintWhenWrong": "漏画了支持力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Normal" },
+      "appliesTo": "物块C受力图"
+    },
+    {
+      "expect": "单独 C 图中应有摩擦力",
+      "hintWhenWrong": "漏画了摩擦力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Friction" },
+      "appliesTo": "物块C受力图"
+    },
+    {
+      "expect": "单独 C 图中摩擦力方向应水平向左（180°）",
+      "hintWhenWrong": "摩擦力阻碍向右的相对运动，方向应水平向左",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": { "forceType": "Friction", "expectedAngle": 180 },
+      "appliesTo": "物块C受力图"
+    },
+    {
+      "expect": "B+C 整体图中应有 A 对 B 的推力",
+      "hintWhenWrong": "漏画了 A 对 B 的接触推力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Applied", "sourceObject": "A" },
+      "appliesTo": "B+C部分整体受力图"
+    },
+    {
+      "expect": "B+C 整体图中应有总重力",
+      "hintWhenWrong": "漏画了总重力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Gravity" },
+      "appliesTo": "B+C部分整体受力图"
+    },
+    {
+      "expect": "B+C 整体图中应有总支持力",
+      "hintWhenWrong": "漏画了支持力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Normal" },
+      "appliesTo": "B+C部分整体受力图"
+    },
+    {
+      "expect": "B+C 整体图中应有摩擦力",
+      "hintWhenWrong": "漏画了摩擦力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": { "forceType": "Friction" },
+      "appliesTo": "B+C部分整体受力图"
+    },
+    {
+      "expect": "B+C 整体图中摩擦力方向应水平向左（180°）",
+      "hintWhenWrong": "摩擦力阻碍向右的相对运动，方向应水平向左",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": { "forceType": "Friction", "expectedAngle": 180 },
+      "appliesTo": "B+C部分整体受力图"
+    },
+    {
+      "expect": "B+C 整体图中不应出现 B 与 C 之间的内力",
+      "hintWhenWrong": "B+C 作为整体时，B 与 C 之间的相互作用力是内力，不列入受力图",
+      "ruleType": "INTERNAL_FORCE_ABSENT",
+      "ruleParams": { "systemObjects": ["B", "C"] },
+      "appliesTo": "B+C部分整体受力图"
     }
   ],
   "analysis": "整体法求加速度，再隔离部分系统求接触力；相同摩擦条件下接触力与“被推动的后方质量”有关。",

@@ -4,16 +4,85 @@
   "source": "2024 新课标卷第 24 题“高层楼房运送重物”情境。",
   "scenario": "建筑工地用绳索将重物从地面匀速提升到高处，后改为加速提升。比较两种情况下绳子拉力与重力的关系，并分析机械能变化。",
   "studentTasks": [
-    { "label": "分别画“匀速上升”和“加速上升”时重物的受力图", "target": "匀速阶段/加速阶段受力图" }
+    { "label": "画“匀速上升”时重物的受力图", "target": "匀速阶段受力图" },
+    { "label": "画“加速上升”时重物的受力图", "target": "加速阶段受力图" }
   ],
   "judgeRules": [
-    { 
-      "expect": "匀速阶段：画重力 G 和绳子拉力 T，且 T=mg（两力等大反向）", 
-      "hintWhenWrong": "匀速运动合力为零，绳子拉力等于重力，不要画\"向上的运动力\"" 
+    {
+      "expect": "匀速上升时，必须画出重力",
+      "hintWhenWrong": "漏画了重力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Gravity"
+      },
+      "appliesTo": "匀速阶段受力图"
     },
-    { 
-      "expect": "加速阶段：画重力 G 和绳子拉力 T，且 T>mg（拉力大于重力）", 
-      "hintWhenWrong": "加速上升时合力向上，拉力必须大于重力，运动方向不是一种力" 
+    {
+      "expect": "匀速上升时，必须画出绳子拉力",
+      "hintWhenWrong": "漏画了绳子拉力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Tension"
+      },
+      "appliesTo": "匀速阶段受力图"
+    },
+    {
+      "expect": "不要画向上的运动力",
+      "hintWhenWrong": "运动方向不是一种力，必须找施力物体",
+      "ruleType": "NO_FAKE_FORCE",
+      "ruleParams": {
+        "fakeNames": ["运动力", "速度力"]
+      },
+      "appliesTo": "匀速阶段受力图"
+    },
+    {
+      "expect": "匀速上升时，拉力大小应等于重力",
+      "hintWhenWrong": "匀速运动合力为零，绳子拉力等于重力",
+      "ruleType": "MAGNITUDE_RELATION",
+      "ruleParams": {
+        "forceType1": "Tension",
+        "forceType2": "Gravity",
+        "relation": "="
+      },
+      "appliesTo": "匀速阶段受力图"
+    },
+    {
+      "expect": "加速上升时，必须画出重力",
+      "hintWhenWrong": "漏画了重力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Gravity"
+      },
+      "appliesTo": "加速阶段受力图"
+    },
+    {
+      "expect": "加速上升时，必须画出绳子拉力",
+      "hintWhenWrong": "漏画了绳子拉力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Tension"
+      },
+      "appliesTo": "加速阶段受力图"
+    },
+    {
+      "expect": "不要画向上的运动力",
+      "hintWhenWrong": "运动方向不是一种力，必须找施力物体",
+      "ruleType": "NO_FAKE_FORCE",
+      "ruleParams": {
+        "fakeNames": ["运动力", "速度力"]
+      },
+      "appliesTo": "加速阶段受力图"
+    },
+    {
+      "expect": "加速上升时，拉力应大于重力",
+      "hintWhenWrong": "加速上升时合力向上，拉力必须大于重力（处于超重状态）",
+      "ruleType": "MAGNITUDE_RELATION",
+      "ruleParams": {
+        "forceType1": "Tension",
+        "forceType2": "Gravity",
+        "relation": ">"
+      },
+      "appliesTo": "加速阶段受力图"
     }
   ],
   "analysis": "受力图相同，但力的大小关系不同；运动状态决定合力方向；能量分析前必须明确拉力和重力做功。",

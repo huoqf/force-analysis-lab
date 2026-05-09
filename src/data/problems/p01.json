@@ -8,9 +8,52 @@
     { "label": "选择“空间站”为研究对象", "target": "空间站受力图" }
   ],
   "judgeRules": [
-    { "expect": "整体图中只应出现外力 F，不应出现飞船与空间站之间的内力", "hintWhenWrong": "整体法中系统内部相互作用力不作为外力列入" },
-    { "expect": "空间站单独图中应出现飞船对空间站的水平作用力", "hintWhenWrong": "未画出飞船对空间站的作用力" },
-    { "expect": "整体图中还应出现总重力 G=(M+m)g 和地面支持力 N=(M+m)g", "hintWhenWrong": "水平加速运动中竖直方向仍受重力和支持力，不能只画水平外力" }
+    {
+      "expect": "整体图中不应出现飞船与空间站之间的内力",
+      "hintWhenWrong": "整体法中系统内部相互作用力不作为外力列入",
+      "ruleType": "INTERNAL_FORCE_ABSENT",
+      "ruleParams": {
+        "systemObjects": ["飞船", "空间站"]
+      },
+      "appliesTo": "整体受力图"
+    },
+    {
+      "expect": "整体图中应出现外部推力 F",
+      "hintWhenWrong": "未画出外部作用力 F",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Applied"
+      },
+      "appliesTo": "整体受力图"
+    },
+    {
+      "expect": "空间站单独图中应出现飞船对空间站的作用力",
+      "hintWhenWrong": "未画出飞船对空间站的作用力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Applied",
+        "sourceObject": "飞船"
+      },
+      "appliesTo": "空间站受力图"
+    },
+    {
+      "expect": "整体图中还应出现总重力",
+      "hintWhenWrong": "水平加速运动中仍受重力，不能漏画",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Gravity"
+      },
+      "appliesTo": "整体受力图"
+    },
+    {
+      "expect": "整体图中还应出现地面支持力",
+      "hintWhenWrong": "水平加速运动中仍受支持力，不能漏画",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Normal"
+      },
+      "appliesTo": "整体受力图"
+    }
   ],
   "analysis": "先整体求加速度 a=\\frac{F}{M+m}，再隔离空间站得 F'=Ma=\\frac{MF}{M+m}。",
   "trainingTags": ["整体法", "隔离法", "内力外力区分", "牛顿第二定律"],

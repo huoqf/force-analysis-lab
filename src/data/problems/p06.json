@@ -8,16 +8,51 @@
   ],
   "judgeRules": [
     {
-      "expect": "重力 G 竖直向下",
-      "hintWhenWrong": "重力方向始终竖直向下，与绳子偏转角度无关"
+      "expect": "必须画出重力",
+      "hintWhenWrong": "漏画了重力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Gravity"
+      },
+      "appliesTo": "悬挂小球受力图"
     },
     {
-      "expect": "绳子拉力 T 沿绳方向指向悬点（斜向左上）",
-      "hintWhenWrong": "绳子拉力方向一定沿绳并指向绳的收缩方向，不能画成竖直向上"
+      "expect": "重力方向竖直向下",
+      "hintWhenWrong": "重力方向始终竖直向下，与绳子偏转角度无关",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": {
+        "forceType": "Gravity",
+        "expectedAngle": 270
+      },
+      "appliesTo": "悬挂小球受力图"
     },
     {
-      "expect": "静电斥力 F_e 水平指向远离另一带电小球的方向",
-      "hintWhenWrong": "两个同种电荷相互排斥，静电力沿两球连线水平向外，不能画成斜向"
+      "expect": "必须画出绳子拉力",
+      "hintWhenWrong": "漏画了绳子拉力",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Tension"
+      },
+      "appliesTo": "悬挂小球受力图"
+    },
+    {
+      "expect": "拉力方向沿绳指向悬点",
+      "hintWhenWrong": "绳子拉力方向一定沿绳并指向绳的收缩方向，不能画成竖直向上",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": {
+        "forceType": "Tension",
+        "relativeTo": "String"
+      },
+      "appliesTo": "悬挂小球受力图"
+    },
+    {
+      "expect": "必须画出静电斥力",
+      "hintWhenWrong": "两同种电荷相互排斥，静电力沿两球连线水平向外",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Electrostatic"
+      },
+      "appliesTo": "悬挂小球受力图"
     }
   ],
   "analysis": "三力平衡；用几何关系建立 tanθ，再得到静电力表达式。",
