@@ -1,149 +1,97 @@
 # Force Analysis Lab
 
-Force Analysis Lab 是一个面向高中生的物理力学交互学习网站，重点帮助学生建立完整的受力分析思维框架。项目通过可调参数、动态受力图、公式推导和分步骤讲解，把抽象的力学模型转化为可以观察、操作和验证的网页实验。
+Force Analysis Lab 是一个面向高中生的物理力学交互学习网站，重点帮助学生建立完整的受力分析思维框架。项目通过可调参数、动态受力图、公式推导、智能判别和分步骤讲解，把抽象的力学模型转化为可以观察、操作和验证的网页实验。
 
-本项目适合用于高中物理力学入门、课堂演示、课后自学和模型化训练，当前覆盖水平面、斜面、粗糙面、连接体、滑轮、阿特伍德机、动滑轮等典型模型。
+本项目适合用于高中物理力学入门、课堂演示、课后自学和模型化训练，当前已覆盖从基础水平面模型到复杂的多物体连接体、圆周运动及综合应用场景。
 
-## 项目目标
+## 项目核心价值
 
-本项目不是单纯给出物理题答案，而是引导学生理解“如何分析”。每个力学模型都尽量按照从场景识别、研究对象选择、受力图绘制、坐标轴建立、公式列写、结果解释到易错点提醒的路径展开。
+本项目不仅仅提供物理题的答案，更致力于教授“如何分析”。我们通过以下六要素构建交互模型：
 
-项目重点强调以下能力：
+1.  **参数滑块**：实时观察质量、角度、摩擦因数、外力等变量对系统状态的影响。
+2.  **动态受力图**：根据参数变化自动调整力矢量的大小与方向，支持力分解展示。
+3.  **坐标轴系统**：展示标准或旋转的正交分解坐标系，引导学生建立规范的投影思维。
+4.  **公式面板**：使用 KaTeX 渲染清晰的物理公式，同步展示推导过程。
+5.  **步骤讲解**：将复杂的分析过程拆解为可操作的步骤（如“选择研究对象”、“判别运动趋势”）。
+6.  **易错点提示**：针对学生常见的概念混淆（如向心力误认为独立力）提供即时反馈。
 
-- 建立受力分析的整体框架。
-- 按照从易到难的顺序训练典型模型。
-- 使用可视化受力图理解力的大小、方向和作用对象。
-- 通过参数滑块观察质量、角度、摩擦因数、外力等变量变化对结果的影响。
-- 展示清晰的解题步骤和公式推导过程。
-- 支持在 Windows 11 本地开发和运行。
+## 教学标准与铁律
+
+本项目严格遵循高中物理教学规范，内置多项“教学铁律”：
+- **严禁虚假力**：明确说明向心力是合力效果，而非独立存在的真实力。
+- **摩擦力判别**：强制执行“先判别相对运动趋势，再确定方向”的逻辑。
+- **分解逻辑**：斜面模型必须展示重力的正交分解过程，禁止直接套用结论。
+- **方法论区分**：连接体模型明确区分“整体法”与“隔离法”的适用场景。
 
 ## 技术栈
 
-项目采用现代前端技术构建：
-
-- **React**：构建交互式学习页面。
-- **TypeScript**：保证物理计算、组件参数和数据结构的类型清晰。
-- **Vite**：提供快速本地开发和构建能力。
-- **SVG**：绘制受力箭头、坐标轴、物体和滑轮等示意图。
-- **Tailwind CSS**：用于页面样式和响应式布局。
-- **KaTeX / react-katex**：渲染物理公式。
-- **Vitest**：为核心物理计算函数编写单元测试。
-
-## 安装与运行
-
-### 环境要求
-- Node.js (建议 v20+)
-- npm 或 pnpm
-
-### 本地开发
-1. **安装依赖**:
-   ```bash
-   npm install
-   ```
-2. **启动开发服务器**:
-   ```bash
-   npm run dev
-   ```
-   服务器启动后，通常会在控制台显示本地访问地址（如 `http://localhost:5173`）。
-
-### 构建与预览
-- **生产环境构建**:
-  ```bash
-  npm run build
-  ```
-  该命令会执行 TypeScript 类型检查并进行代码打包，输出至 `dist` 文件夹。
-- **本地预览构建成果**:
-  ```bash
-  npm run preview
-  ```
-
-### 运行测试
-项目使用 Vitest 进行物理逻辑测试：
-```bash
-npx vitest run
-```
-
-## 当前课程模块
-
-项目当前已有多个高中力学模型页面，每个页面围绕一个典型受力分析场景展开。
-
-| 模块 | 文件 | 学习重点 |
-| --- | --- | --- |
-| 首页 | `src/lessons/Home.tsx` | 项目入口与课程导航 |
-| 受力分析步骤 | `src/lessons/SevenSteps.tsx` | 建立受力分析基本流程 |
-| 水平面静止模型 | `src/lessons/HorizontalStatic.tsx` | 重力、支持力、平衡状态 |
-| 光滑斜面模型 | `src/lessons/InclineFrictionless.tsx` | 重力分解、沿斜面加速度 |
-| 粗糙水平面模型 | `src/lessons/RoughHorizontal.tsx` | 静摩擦、滑动摩擦、临界状态 |
-| 粗糙斜面模型 | `src/lessons/RoughIncline.tsx` | 斜面分解、摩擦方向、是否下滑 |
-| 水平连接体模型 | `src/lessons/ConnectedHorizontal.tsx` | 整体法、隔离法、绳子张力 |
-| 桌面悬挂滑轮模型 | `src/lessons/ConnectedPulley.tsx` | 连接体、张力、摩擦与加速度 |
-| 三物体连接模型 | `src/lessons/ConnectedTriple.tsx` | 多物体整体法与隔离法 |
-| 水平圆周运动 | `src/lessons/CircularHorizontal.tsx` | 向心力来源、圆周运动基础 |
-| 拱桥模型 | `src/lessons/ArchBridge.tsx` | 竖直方向圆周运动、失重 |
-| 凹桥模型 | `src/lessons/ConcaveBridge.tsx` | 竖直方向圆周运动、超重 |
-| 竖直平面圆周运动 | `src/lessons/VerticalCircular.tsx` | 临界条件、最高点受力 |
-| 圆锥摆模型 | `src/lessons/ConicalPendulum.tsx` | 受力分解、圆周运动动力学 |
-| 阿特伍德机模型 | `src/lessons/Atwood.tsx` | 轻绳、定滑轮、加速度与张力 |
-| 动滑轮模型 | `src/lessons/MovingPulley.tsx` | 理想动滑轮、机械效益、绳端拉力 |
+- **React**：构建高性能交互式 UI。
+- **TypeScript**：确保物理计算逻辑、数据 Schema 的严谨性。
+- **Vite**：极速本地开发环境。
+- **SVG**：高精度绘制受力箭头、滑轮、天体、轨道等物理场景。
+- **Tailwind CSS**：实现响应式、高颜值的界面设计。
+- **KaTeX**：工业级物理公式渲染。
+- **Vitest**：物理计算引擎的自动化单元测试。
 
 ## 项目结构
 
 ```text
 force-analysis-lab/
-├── public/
 ├── src/
-│   ├── assets/
-│   │   ├── hero.png
-│   │   ├── typescript.svg
-│   │   └── vite.svg
-│   ├── components/
-│   │   ├── Control/
-│   │   │   └── ParameterSlider.tsx
-│   │   └── Scene/
-│   │       ├── ForceArrow.tsx
-│   │       ├── FreeBodyDiagram.tsx
-│   │       └── PulleySymbol.tsx
-│   ├── lessons/
-│   │   ├── ArchBridge.tsx
-│   │   ├── Atwood.tsx
-│   │   ├── CircularHorizontal.tsx
-│   │   ├── ConcaveBridge.tsx
-│   │   ├── ConicalPendulum.tsx
-│   │   ├── ConnectedHorizontal.tsx
-│   │   ├── ConnectedPulley.tsx
-│   │   ├── ConnectedTriple.tsx
-│   │   ├── Home.tsx
-│   │   ├── HorizontalStatic.tsx
-│   │   ├── InclineFrictionless.tsx
-│   │   ├── MovingPulley.tsx
-│   │   ├── RoughHorizontal.tsx
-│   │   ├── RoughIncline.tsx
-│   │   ├── SevenSteps.tsx
-│   │   └── VerticalCircular.tsx
-│   ├── physics/
-│   │   ├── __tests__/
-│   │   │   ├── circular.test.ts
-│   │   │   ├── connected.test.ts
-│   │   │   └── mechanics.test.ts
-│   │   ├── circular.ts
-│   │   ├── connected.ts
-│   │   ├── mechanics.ts
-│   │   └── pulley.ts
-│   ├── App.css
-│   ├── App.jsx
-│   ├── App.tsx
-│   ├── counter.ts
-│   ├── index.css
-│   ├── main.ts
-│   ├── main.tsx
-│   └── style.css
-├── index.html
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-├── vitest.config.ts
-└── tailwind.config.js
+│   ├── physics/           # 物理计算引擎（力学、圆周、连接体、判别引擎）
+│   │   ├── __tests__/     # 核心算法单元测试
+│   │   ├── mechanics.ts   # 基础力学计算
+│   │   ├── circular.ts    # 圆周运动计算
+│   │   └── judgingEngine.ts # 智能判别引擎（用于综合题自动批改）
+│   ├── lessons/           # 课程模块（React 页面）
+│   │   ├── Home.tsx       # 课程导航中心
+│   │   ├── P0x...tsx      # 综合练习题（基于 Problem Schema）
+│   │   └── ...            # 各类基础模型页面
+│   ├── components/        # 通用 UI 组件
+│   │   ├── Scene/         # 物理场景渲染组件（ForceArrow, Pulley...）
+│   │   └── Control/       # 交互控制组件
+│   └── data/              # 静态数据与 Schema
+│       ├── problems/      # 综合题库 JSON 配置
+│       └── types.ts       # 物理实体类型定义
+```
+
+## 当前模块覆盖
+
+### 1. 基础力学模型
+| 模块 | 核心学习点 |
+| :--- | :--- |
+| **受力分析七步法** | 规范化解题流程，建立思维框架 |
+| **水平面/斜面模型** | 重力分解、支持力、摩擦力临界态判别 |
+| **滑轮/连接体模型** | 整体法与隔离法、绳子张力 T₁/T₂ 差异、失重/超重 |
+
+### 2. 圆周运动模型
+| 模块 | 核心学习点 |
+| :--- | :--- |
+| **水平圆周/圆锥摆** | 向心力来源、受力正交分解、临界速度 |
+| **拱桥/凹桥/轨道** | 竖直方向向心力计算、超重与失重的物理本质 |
+
+### 3. 综合题库 (智能判别)
+项目内置了基于 `judgingEngine` 的综合练习，支持自动判定学生的分析路径：
+- **P01 飞船对接**：隔离法研究内力（相互作用力）。
+- **P02 传送带**：动态识别运动状态切换导致的摩擦力突变。
+- **P03 轨道最高点**：恰好通过临界条件的深度解析。
+- **P04 竖直提升**：区分超重（加速）与平衡（匀速）状态。
+- **P05 三物块堆叠**：多层隔离法与整体法的灵活运用。
+- **P06 电场偏转**：三力平衡在复杂场环境下的应用。
+- **P08 斜面连接体**：多变量约束下的摩擦力方向判别。
+
+## 开发者指南
+
+### 安装与运行
+```bash
+npm install
+npm run dev
+```
+
+### 运行测试
+```bash
+npm test
 ```
 
 ---
-*由 Gemini CLI 根据项目规范更新。*
+*由 Antigravity 智能助教更新。*
