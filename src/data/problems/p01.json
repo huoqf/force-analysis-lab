@@ -2,60 +2,84 @@
   "id": "p01",
   "title": "飞船与空间站对接后的相互作用力",
   "source": "2024 北京高考物理第 4 题。",
-  "scenario": "飞船与空间站对接后，在沿水平方向的恒力 F 作用下一起向前加速运动。飞船质量为 m，空间站质量为 M，忽略阻力。求飞船与空间站之间的作用力大小。",
+  "scenario": "飞船与空间站在太空轨道上对接后，在沿轨道水平方向的恒力 F 作用下一起加速运动。飞船质量为 m，空间站质量为 M，忽略阻力，忽略重力对运动的影响（轨道重力已提供向心力）。求飞船与空间站之间的作用力大小。",
   "studentTasks": [
-    { "label": "选择“飞船 + 空间站整体”为研究对象", "target": "整体受力图" },
-    { "label": "选择“空间站”为研究对象", "target": "空间站受力图" }
+    { "label": "选择「飞船 + 空间站整体」为研究对象", "target": "整体受力图" },
+    { "label": "选择「空间站」为研究对象", "target": "空间站受力图" }
   ],
   "judgeRules": [
     {
       "expect": "整体图中不应出现飞船与空间站之间的内力",
       "hintWhenWrong": "整体法中系统内部相互作用力不作为外力列入",
       "ruleType": "INTERNAL_FORCE_ABSENT",
-      "ruleParams": {
-        "systemObjects": ["飞船", "空间站"]
-      },
+      "ruleParams": { "systemObjects": ["飞船", "空间站"] },
       "appliesTo": "整体受力图"
     },
     {
       "expect": "整体图中应出现外部推力 F",
       "hintWhenWrong": "未画出外部作用力 F",
       "ruleType": "FORCE_PRESENT",
-      "ruleParams": {
-        "forceType": "Applied"
-      },
+      "ruleParams": { "forceType": "Applied" },
+      "appliesTo": "整体受力图"
+    },
+    {
+      "expect": "整体图中外部推力 F 方向应水平向前（0°）",
+      "hintWhenWrong": "外部推力沿轨道水平向前，方向不能画反或画斜",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": { "forceType": "Applied", "expectedAngle": 0 },
+      "appliesTo": "整体受力图"
+    },
+    {
+      "expect": "整体图中不应出现支持力",
+      "hintWhenWrong": "飞船与空间站在太空轨道运行，没有地面接触，不存在支持力",
+      "ruleType": "FORCE_ABSENT",
+      "ruleParams": { "forceType": "Normal" },
+      "appliesTo": "整体受力图"
+    },
+    {
+      "expect": "整体图中不应将重力作为独立外力画出",
+      "hintWhenWrong": "轨道上重力已全部用于提供向心力，不作为受力分析中的独立外力",
+      "ruleType": "FORCE_ABSENT",
+      "ruleParams": { "forceType": "Gravity" },
       "appliesTo": "整体受力图"
     },
     {
       "expect": "空间站单独图中应出现飞船对空间站的作用力",
       "hintWhenWrong": "未画出飞船对空间站的作用力",
       "ruleType": "FORCE_PRESENT",
-      "ruleParams": {
-        "forceType": "Applied",
-        "sourceObject": "飞船"
-      },
+      "ruleParams": { "forceType": "Applied", "sourceObject": "飞船" },
       "appliesTo": "空间站受力图"
     },
     {
-      "expect": "整体图中还应出现总重力",
-      "hintWhenWrong": "水平加速运动中仍受重力，不能漏画",
-      "ruleType": "FORCE_PRESENT",
-      "ruleParams": {
-        "forceType": "Gravity"
-      },
-      "appliesTo": "整体受力图"
+      "expect": "空间站受力图中飞船对空间站的作用力方向应水平向前（0°）",
+      "hintWhenWrong": "飞船推动空间站向前加速，该力方向应沿轨道水平向前",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": { "forceType": "Applied", "sourceObject": "飞船", "expectedAngle": 0 },
+      "appliesTo": "空间站受力图"
     },
     {
-      "expect": "整体图中还应出现地面支持力",
-      "hintWhenWrong": "水平加速运动中仍受支持力，不能漏画",
-      "ruleType": "FORCE_PRESENT",
-      "ruleParams": {
-        "forceType": "Normal"
-      },
+      "expect": "空间站受力图中不应出现支持力",
+      "hintWhenWrong": "太空中无地面接触，不存在支持力",
+      "ruleType": "FORCE_ABSENT",
+      "ruleParams": { "forceType": "Normal" },
+      "appliesTo": "空间站受力图"
+    },
+    {
+      "expect": "空间站受力图中不应将重力作为独立外力画出",
+      "hintWhenWrong": "轨道上重力已全部用于提供向心力，不作为受力分析中的独立外力",
+      "ruleType": "FORCE_ABSENT",
+      "ruleParams": { "forceType": "Gravity" },
+      "appliesTo": "空间站受力图"
+    },
+    {
+      "expect": "不能将合力或向心力作为独立的力画出",
+      "hintWhenWrong": "合力和向心力不是独立真实力，不能单独画在受力图中",
+      "ruleType": "NO_FAKE_FORCE",
+      "ruleParams": { "fakeNames": ["合力", "向心力", "CentripetalForce", "ResultantForce"] },
       "appliesTo": "整体受力图"
     }
   ],
-  "analysis": "先整体求加速度 a=\\frac{F}{M+m}，再隔离空间站得 F'=Ma=\\frac{MF}{M+m}。",
-  "trainingTags": ["整体法", "隔离法", "内力外力区分", "牛顿第二定律"],
+  "analysis": "先整体求加速度 a=F/(M+m)，再隔离空间站得 F'=MF/(M+m)。",
+  "trainingTags": ["整体法", "隔离法", "内力外力区分", "牛顿第二定律", "太空轨道场景"],
   "difficultyLayer": 2
 }

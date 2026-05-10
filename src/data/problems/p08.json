@@ -1,10 +1,10 @@
 {
   "id": "p08",
   "title": "斜面连接悬挂物的滑轮系统",
-  "source": "高考常见“斜面 + 滑轮 + 连接体”综合模型。",
-  "scenario": "物块 A 在粗糙斜面上，通过轻绳跨过定滑轮与悬挂物 B 相连。释放后系统运动。已知 mA、mB、θ、μ，判断运动方向并求加速度。",
+  "source": "高考常见\"斜面 + 滑轮 + 连接体\"综合模型。",
+  "scenario": "物块 A 在粗糙斜面上，通过轻绳跨过轻质定滑轮与竖直悬挂的物块 B 相连。由静止释放后系统运动。已知 mA、mB、斜面倾角 θ、动摩擦因数 μ，判断运动方向并分别画出 A、B 的受力图。",
   "studentTasks": [
-    { "label": "分别画 A 和 B 的受力图", "target": "物块A和B的受力图" }
+    { "label": "分别画物块 A 和物块 B 的受力图", "target": "物块A和B的受力图" }
   ],
   "judgeRules": [
     {
@@ -15,10 +15,38 @@
       "appliesTo": "物块A和B的受力图"
     },
     {
+      "expect": "物块 B 的重力方向应竖直向下（270°）",
+      "hintWhenWrong": "重力方向始终竖直向下，与运动方向无关",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": { "forceType": "Gravity", "targetObject": "B", "expectedAngle": 270 },
+      "appliesTo": "物块A和B的受力图"
+    },
+    {
       "expect": "物块 B 必须画出绳子拉力",
-      "hintWhenWrong": "B 只受重力和绳子拉力",
+      "hintWhenWrong": "B 竖直悬挂，只受重力和绳子拉力，不能漏画拉力",
       "ruleType": "FORCE_PRESENT",
       "ruleParams": { "forceType": "Tension", "targetObject": "B" },
+      "appliesTo": "物块A和B的受力图"
+    },
+    {
+      "expect": "物块 B 的绳子拉力方向应竖直向上（90°）",
+      "hintWhenWrong": "B 竖直悬挂，绳子沿竖直方向向上，拉力方向应竖直向上",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": { "forceType": "Tension", "targetObject": "B", "expectedAngle": 90 },
+      "appliesTo": "物块A和B的受力图"
+    },
+    {
+      "expect": "物块 B 不应出现支持力",
+      "hintWhenWrong": "B 竖直悬挂于空中，与任何面无接触，不存在支持力",
+      "ruleType": "FORCE_ABSENT",
+      "ruleParams": { "forceType": "Normal", "targetObject": "B" },
+      "appliesTo": "物块A和B的受力图"
+    },
+    {
+      "expect": "物块 B 不应出现假力",
+      "hintWhenWrong": "惯性力、合力不是独立真实力，不能画在受力图中",
+      "ruleType": "NO_FAKE_FORCE",
+      "ruleParams": { "fakeNames": ["惯性力", "合力", "InertiaForce", "ResultantForce"] },
       "appliesTo": "物块A和B的受力图"
     },
     {
@@ -29,10 +57,24 @@
       "appliesTo": "物块A和B的受力图"
     },
     {
+      "expect": "物块 A 的重力方向应竖直向下（270°）",
+      "hintWhenWrong": "重力方向始终竖直向下，不能沿斜面方向画，也不能只画分力",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": { "forceType": "Gravity", "targetObject": "A", "expectedAngle": 270 },
+      "appliesTo": "物块A和B的受力图"
+    },
+    {
       "expect": "物块 A 必须画出支持力",
       "hintWhenWrong": "漏画了斜面对物块 A 的支持力",
       "ruleType": "FORCE_PRESENT",
       "ruleParams": { "forceType": "Normal", "targetObject": "A" },
+      "appliesTo": "物块A和B的受力图"
+    },
+    {
+      "expect": "物块 A 的支持力方向应垂直斜面向外",
+      "hintWhenWrong": "支持力垂直于接触面（斜面）向外，不是竖直向上",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": { "forceType": "Normal", "targetObject": "A", "relativeTo": "Surface", "isPerpendicular": true },
       "appliesTo": "物块A和B的受力图"
     },
     {
@@ -43,33 +85,40 @@
       "appliesTo": "物块A和B的受力图"
     },
     {
+      "expect": "物块 A 的绳子拉力方向应沿绳指向滑轮（沿斜面向上方向）",
+      "hintWhenWrong": "绳子拉力方向沿绳并指向绳的收缩方向，即沿斜面向上朝向滑轮，不能画成竖直向上",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": { "forceType": "Tension", "targetObject": "A", "relativeTo": "String" },
+      "appliesTo": "物块A和B的受力图"
+    },
+    {
       "expect": "物块 A 必须画出摩擦力",
-      "hintWhenWrong": "漏画了斜面对物块 A 的摩擦力",
+      "hintWhenWrong": "漏画了斜面对物块 A 的摩擦力，斜面粗糙且物块有运动趋势，必然存在摩擦力",
       "ruleType": "FORCE_PRESENT",
       "ruleParams": { "forceType": "Friction", "targetObject": "A" },
       "appliesTo": "物块A和B的受力图"
     },
     {
-      "expect": "物块 A 的支持力方向应垂直斜面向外",
-      "hintWhenWrong": "支持力垂直于接触面",
-      "ruleType": "DIRECTION_CHECK",
-      "ruleParams": { "forceType": "Normal", "targetObject": "A", "relativeTo": "Surface", "isPerpendicular": true },
-      "appliesTo": "物块A和B的受力图"
-    },
-    {
-      "expect": "物块 A 的摩擦力方向应根据运动趋势判断",
-      "hintWhenWrong": "先判断相对运动趋势，再确定摩擦力方向",
+      "expect": "物块 A 的摩擦力方向应根据运动趋势动态判断",
+      "hintWhenWrong": "先比较 mBg 与 mAgsinθ + μmAgcosθ 的大小，判断 A 的运动趋势，再确定摩擦力方向：A 有上滑趋势则摩擦力沿斜面向下，A 有下滑趋势则摩擦力沿斜面向上",
       "ruleType": "DIRECTION_CONDITIONAL",
-      "ruleParams": { 
-        "forceType": "Friction", 
-        "targetObject": "A", 
+      "ruleParams": {
+        "forceType": "Friction",
+        "targetObject": "A",
         "conditionalFn": "calculateInclinePulleySystem",
         "conditionalResultKey": "motionDirection"
       },
       "appliesTo": "物块A和B的受力图"
+    },
+    {
+      "expect": "物块 A 不应将重力分力作为独立的力画出",
+      "hintWhenWrong": "mgsinθ 和 mgcosθ 是重力的分量，不是独立真实力，受力图中只画重力本身",
+      "ruleType": "NO_FAKE_FORCE",
+      "ruleParams": { "fakeNames": ["重力分力", "mgsinθ", "mgcosθ", "沿斜面分力", "垂直分力", "分力", "惯性力", "合力"] },
+      "appliesTo": "物块A和B的受力图"
     }
   ],
-  "analysis": "先比较 $m_B g$ 与 $m_A g\\sin\\theta + \\mu m_A g\\cos\\theta$ 的大小，判断运动方向；再对 A、B 分别列牛顿第二定律求加速度。",
-  "trainingTags": ["连接体", "斜面", "滑轮", "摩擦临界判断"],
-  "difficultyLayer": 2
+  "analysis": "先比较 mBg 与 mAgsinθ + μmAgcosθ 的大小判断运动方向；若 mBg > mAgsinθ + μmAgcosθ，则 A 上滑、B 下降，摩擦力沿斜面向下；反之 A 下滑、B 上升，摩擦力沿斜面向上；再对 A、B 分别列牛顿第二定律求加速度。",
+  "trainingTags": ["连接体", "斜面", "滑轮", "摩擦临界判断", "运动方向判断", "牛顿第二定律"],
+  "difficultyLayer": 3
 }

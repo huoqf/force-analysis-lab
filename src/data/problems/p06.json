@@ -2,7 +2,7 @@
   "id": "p06",
   "title": "带电小球在电场中偏转平衡",
   "source": "2024 北京高中合格考受力示意图题，适合作为综合训练入门题。",
-  "scenario": "质量为 m、带正电的小球用绝缘细线悬挂，另一个带正电小球靠近，使悬挂小球静止时偏离竖直方向。已知几何关系，求静电力与偏移量关系。",
+  "scenario": "质量为 m、带正电的小球用绝缘细线悬挂于固定点，另一个带正电小球从水平方向靠近（位于悬挂小球右侧），使悬挂小球静止时绳子偏离竖直方向。已知偏转几何关系，求静电力与偏移量关系。",
   "studentTasks": [
     { "label": "画悬挂小球的受力图", "target": "悬挂小球受力图" }
   ],
@@ -17,7 +17,7 @@
       "appliesTo": "悬挂小球受力图"
     },
     {
-      "expect": "重力方向竖直向下",
+      "expect": "重力方向应竖直向下（270°）",
       "hintWhenWrong": "重力方向始终竖直向下，与绳子偏转角度无关",
       "ruleType": "DIRECTION_CHECK",
       "ruleParams": {
@@ -36,8 +36,8 @@
       "appliesTo": "悬挂小球受力图"
     },
     {
-      "expect": "拉力方向沿绳指向悬点",
-      "hintWhenWrong": "绳子拉力方向一定沿绳并指向绳的收缩方向，不能画成竖直向上",
+      "expect": "拉力方向应沿绳指向悬点，不能画成竖直向上",
+      "hintWhenWrong": "绳子拉力方向一定沿绳并指向绳的收缩方向（即悬点），绳子偏转时拉力也随之偏转，不能画成竖直向上",
       "ruleType": "DIRECTION_CHECK",
       "ruleParams": {
         "forceType": "Tension",
@@ -47,15 +47,43 @@
     },
     {
       "expect": "必须画出静电斥力",
-      "hintWhenWrong": "两同种电荷相互排斥，静电力沿两球连线水平向外",
+      "hintWhenWrong": "两同种电荷相互排斥，必须画出静电斥力",
       "ruleType": "FORCE_PRESENT",
       "ruleParams": {
         "forceType": "Electrostatic"
       },
       "appliesTo": "悬挂小球受力图"
+    },
+    {
+      "expect": "静电斥力方向应水平向左（180°），即背离右侧靠近小球",
+      "hintWhenWrong": "两正电荷相互排斥，靠近小球在右侧，故悬挂小球所受静电力水平向左，不能画成斜向或向右",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": {
+        "forceType": "Electrostatic",
+        "expectedAngle": 180
+      },
+      "appliesTo": "悬挂小球受力图"
+    },
+    {
+      "expect": "不应将合力或平衡力作为独立的力画出",
+      "hintWhenWrong": "合力、平衡力不是独立真实力，受力图中只能画出施力物体明确的真实力",
+      "ruleType": "NO_FAKE_FORCE",
+      "ruleParams": {
+        "fakeNames": ["合力", "平衡力", "ResultantForce", "BalanceForce"]
+      },
+      "appliesTo": "悬挂小球受力图"
+    },
+    {
+      "expect": "受力图中力的数量应恰好为三个（重力、拉力、静电力）",
+      "hintWhenWrong": "悬挂小球处于三力平衡状态，受力图中应恰好有三个力，多画或少画均不正确",
+      "ruleType": "NO_FAKE_FORCE",
+      "ruleParams": {
+        "fakeNames": ["支持力", "Normal", "摩擦力", "Friction", "压力"]
+      },
+      "appliesTo": "悬挂小球受力图"
     }
   ],
-  "analysis": "三力平衡；用几何关系建立 tanθ，再得到静电力表达式。",
+  "analysis": "三力平衡：重力 mg 竖直向下，拉力 T 沿绳斜向左上，静电力 F_e 水平向左。由几何关系得 tanθ = F_e / mg，从而求出静电力表达式。",
   "trainingTags": ["共点力平衡", "三力平衡", "拉力方向", "静电力方向", "力的分解"],
-  "difficultyLayer": 1
+  "difficultyLayer": 2
 }

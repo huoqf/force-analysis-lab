@@ -15,10 +15,17 @@
       "appliesTo": "斜面物块受力图与坐标系"
     },
     {
-      "expect": "重力方向应竖直向下",
-      "hintWhenWrong": "重力方向始终竖直向下，不能沿斜面分解后只画分力",
+      "expect": "重力方向应竖直向下（270°）",
+      "hintWhenWrong": "重力方向始终竖直向下，不能沿斜面方向画，也不能只画重力的分力替代重力本身",
       "ruleType": "DIRECTION_CHECK",
       "ruleParams": { "forceType": "Gravity", "expectedAngle": 270 },
+      "appliesTo": "斜面物块受力图与坐标系"
+    },
+    {
+      "expect": "不能将重力分力作为独立的力画出",
+      "hintWhenWrong": "mgsinθ 和 mgcosθ 是重力沿坐标轴的分量，不是独立真实力，受力图中只画重力本身",
+      "ruleType": "NO_FAKE_FORCE",
+      "ruleParams": { "fakeNames": ["重力分力", "mgsinθ", "mgcosθ", "沿斜面分力", "垂直分力", "分力"] },
       "appliesTo": "斜面物块受力图与坐标系"
     },
     {
@@ -30,7 +37,7 @@
     },
     {
       "expect": "支持力方向应垂直斜面向外",
-      "hintWhenWrong": "支持力垂直于接触面，不是竖直向上",
+      "hintWhenWrong": "支持力垂直于接触面（斜面）向外，不是竖直向上",
       "ruleType": "DIRECTION_CHECK",
       "ruleParams": { "forceType": "Normal", "relativeTo": "Surface", "isPerpendicular": true },
       "appliesTo": "斜面物块受力图与坐标系"
@@ -44,34 +51,41 @@
     },
     {
       "expect": "外力 F 方向应沿斜面向上",
-      "hintWhenWrong": "题目已说明恒力沿斜面向上施加",
+      "hintWhenWrong": "题目已说明恒力沿斜面向上施加，不能画成竖直向上或其他方向",
       "ruleType": "DIRECTION_CHECK",
       "ruleParams": { "forceType": "Applied", "relativeTo": "Surface", "isAlongSurface": true, "directionSense": 1 },
       "appliesTo": "斜面物块受力图与坐标系"
     },
     {
       "expect": "必须画出摩擦力",
-      "hintWhenWrong": "漏画了摩擦力",
+      "hintWhenWrong": "漏画了摩擦力，斜面粗糙且物块运动，必然存在滑动摩擦力",
       "ruleType": "FORCE_PRESENT",
       "ruleParams": { "forceType": "Friction" },
       "appliesTo": "斜面物块受力图与坐标系"
     },
     {
       "expect": "摩擦力方向应沿斜面向下",
-      "hintWhenWrong": "物块相对斜面向上运动，滑动摩擦力沿斜面向下",
+      "hintWhenWrong": "物块相对斜面向上运动，滑动摩擦力阻碍相对运动，方向沿斜面向下",
       "ruleType": "DIRECTION_CHECK",
       "ruleParams": { "forceType": "Friction", "relativeTo": "Surface", "isAlongSurface": true, "directionSense": -1 },
       "appliesTo": "斜面物块受力图与坐标系"
     },
     {
       "expect": "坐标轴 x 沿斜面，y 垂直斜面",
-      "hintWhenWrong": "斜面问题建议沿斜面建立坐标系，可避免重力分解引入额外计算步骤",
+      "hintWhenWrong": "题目要求建立沿斜面坐标系：x 轴沿斜面向上为正方向，y 轴垂直斜面向外为正方向，两轴互相垂直",
       "ruleType": "COORDINATE_CHECK",
       "ruleParams": { "xAlign": "Surface", "yAlign": "Normal" },
       "appliesTo": "斜面物块受力图与坐标系"
+    },
+    {
+      "expect": "不应出现惯性力、合力等假力",
+      "hintWhenWrong": "惯性力、合力不是独立真实力，受力图中只能画出施力物体明确的真实力",
+      "ruleType": "NO_FAKE_FORCE",
+      "ruleParams": { "fakeNames": ["惯性力", "合力", "InertiaForce", "ResultantForce"] },
+      "appliesTo": "斜面物块受力图与坐标系"
     }
   ],
-  "analysis": "垂直斜面方向 N=mgcosθ，沿斜面方向 F=mgsinθ+μmgcosθ。",
-  "trainingTags": ["斜面受力", "重力分解", "摩擦力方向", "平衡条件"],
-  "difficultyLayer": 1
+  "analysis": "垂直斜面方向合力为零：N = mgcosθ；沿斜面方向合力为零：F = mgsinθ + μmgcosθ = mg(sinθ + μcosθ)。",
+  "trainingTags": ["斜面受力", "重力分解", "摩擦力方向", "平衡条件", "坐标系建立"],
+  "difficultyLayer": 2
 }
