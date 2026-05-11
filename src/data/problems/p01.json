@@ -12,7 +12,7 @@
       "expect": "整体图中不应出现飞船与空间站之间的内力",
       "hintWhenWrong": "整体法中系统内部相互作用力不作为外力列入",
       "ruleType": "INTERNAL_FORCE_ABSENT",
-      "ruleParams": { "systemObjects": ["飞船", "空间站"] },
+      "ruleParams": { "systemObjects": ["飞船", "空间站", "整体"] },
       "appliesTo": "整体受力图"
     },
     {
@@ -44,6 +44,13 @@
       "appliesTo": "整体受力图"
     },
     {
+      "expect": "整体图中不应出现摩擦力或阻力",
+      "hintWhenWrong": "题目已明确忽略阻力，太空中也不存在与轨道间的摩擦",
+      "ruleType": "FORCE_ABSENT",
+      "ruleParams": { "forceType": "Friction" },
+      "appliesTo": "整体受力图"
+    },
+    {
       "expect": "空间站单独图中应出现飞船对空间站的作用力",
       "hintWhenWrong": "未画出飞船对空间站的作用力",
       "ruleType": "FORCE_PRESENT",
@@ -55,6 +62,13 @@
       "hintWhenWrong": "飞船推动空间站向前加速，该力方向应沿轨道水平向前",
       "ruleType": "DIRECTION_CHECK",
       "ruleParams": { "forceType": "Applied", "sourceObject": "飞船", "expectedAngle": 0 },
+      "appliesTo": "空间站受力图"
+    },
+    {
+      "expect": "空间站受力图中不应直接出现外部推力 F",
+      "hintWhenWrong": "外力 F 作用在飞船上，对空间站只能通过对接处的相互作用力间接传递",
+      "ruleType": "FORCE_ABSENT",
+      "ruleParams": { "forceType": "Applied", "sourceObject": "外部" },
       "appliesTo": "空间站受力图"
     },
     {
@@ -72,11 +86,25 @@
       "appliesTo": "空间站受力图"
     },
     {
-      "expect": "不能将合力或向心力作为独立的力画出",
-      "hintWhenWrong": "合力和向心力不是独立真实力，不能单独画在受力图中",
+      "expect": "空间站受力图中不应出现摩擦力或阻力",
+      "hintWhenWrong": "题目已明确忽略阻力，空间站与太空之间不存在摩擦力",
+      "ruleType": "FORCE_ABSENT",
+      "ruleParams": { "forceType": "Friction" },
+      "appliesTo": "空间站受力图"
+    },
+    {
+      "expect": "不能将合力、向心力或惯性力作为独立的力画出",
+      "hintWhenWrong": "合力、向心力、惯性力不是独立真实力，不能单独画在受力图中",
       "ruleType": "NO_FAKE_FORCE",
-      "ruleParams": { "fakeNames": ["合力", "向心力", "CentripetalForce", "ResultantForce"] },
+      "ruleParams": { "fakeNames": ["合力", "向心力", "惯性力", "CentripetalForce", "ResultantForce", "InertiaForce"] },
       "appliesTo": "整体受力图"
+    },
+    {
+      "expect": "不能将合力、向心力或惯性力作为独立的力画出",
+      "hintWhenWrong": "合力、向心力、惯性力不是独立真实力，不能单独画在受力图中",
+      "ruleType": "NO_FAKE_FORCE",
+      "ruleParams": { "fakeNames": ["合力", "向心力", "惯性力", "CentripetalForce", "ResultantForce", "InertiaForce"] },
+      "appliesTo": "空间站受力图"
     }
   ],
   "analysis": "先整体求加速度 a=F/(M+m)，再隔离空间站得 F'=MF/(M+m)。",
