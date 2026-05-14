@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
-import { ChevronLeft, Maximize, Minimize, Trash2, CheckCircle2, XCircle, Info, Send } from 'lucide-react';
+import { ChevronLeft, Maximize, Minimize, Trash2, CheckCircle2, XCircle, Info, Send, RotateCcw } from 'lucide-react';
 import { InlineMath } from 'react-katex';
 import FreeBodyDiagram from '../components/Scene/FreeBodyDiagram';
 import ForceArrow from '../components/Scene/ForceArrow';
@@ -31,12 +31,12 @@ const AVAILABLE_FORCES: ForceOption[] = [
   },
   {
     type: 'FakeForce',
-    label: '运动力 / 惯性力（假力）',
+    label: '运动力 / 惯性力',
     symbol: '运动力',
     color: '#c084fc',
     uniquePerStage: true,
     isFake: true,
-    directions: [{ label: '竖直向上（效果力，非真实力）', angle: 90 }],
+    directions: [{ label: '竖直向上', angle: 90 }],
   },
 ];
 
@@ -118,6 +118,12 @@ const P04VerticalLift: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     setRelationMap(prev => ({ ...prev, [activeTab]: rel }));
   }, [activeTab, clearSubmitted]);
 
+  const handleRedo = useCallback(() => {
+    setForcesMap(prev => ({ ...prev, [activeTab]: [] }));
+    setRelationMap(prev => ({ ...prev, [activeTab]: null }));
+    setSubmittedMap(prev => ({ ...prev, [activeTab]: false }));
+  }, [activeTab]);
+
   // ─── 全屏 ───────────────────────────────────────────────────────────────────
   const toggleFullscreen = () => {
     const el = containerRef.current as any;
@@ -181,7 +187,7 @@ const P04VerticalLift: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   function forceDisplayLabel(f: StudentForce): string {
     if (f.type === 'Gravity') return '重力 G（竖直向下）';
     if (f.type === 'Tension') return '绳子拉力 T（竖直向上）';
-    return '运动力 / 惯性力（假力，非真实力）';
+    return '运动力 / 惯性力';
   }
 
   // ─── 力的颜色 ────────────────────────────────────────────────────────────────
@@ -461,9 +467,25 @@ const P04VerticalLift: React.FC<{ onBack: () => void }> = ({ onBack }) => {
               background: 'rgba(255,255,255,0.03)',
               border: '1px solid rgba(255,255,255,0.08)',
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 600, color: 'rgba(255,255,255,0.5)', marginBottom: '4px' }}>
-                <Info size={14} />
-                判别结果
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 600, color: 'rgba(255,255,255,0.5)' }}>
+                  <Info size={14} />
+                  判别结果
+                </div>
+                {!allPassed && (
+                  <button
+                    onClick={handleRedo}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: '4px',
+                      padding: '4px 8px', borderRadius: '6px',
+                      background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)',
+                      color: '#fca5a5', fontSize: '11px', fontWeight: 600,
+                      cursor: 'pointer', transition: 'all 0.15s'
+                    }}
+                  >
+                    <RotateCcw size={12} /> 重做
+                  </button>
+                )}
               </div>
 
               {judgeResults.map((res, idx) => (

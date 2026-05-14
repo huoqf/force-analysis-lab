@@ -16,6 +16,10 @@ export interface DirectionOption {
 
 export interface ForceOption {
   type: ForceType;
+  /** 可选的唯一 ID，用于区分同类型的不同力（如推力 F_AB 和推力 F_BC） */
+  id?: string;
+  /** 可选的施力物体 */
+  sourceObject?: string;
   /** 面板显示标签，如"重力 G" */
   label: string;
   /** 力符号，用于标注箭头，如"G" */
@@ -54,8 +58,10 @@ const AddForcePanel: React.FC<AddForcePanelProps> = ({
       // 只有一个方向时直接确认
       const dir = force.directions[0];
       onConfirm({
+        id: force.id,
         type: force.type,
         label: force.symbol,
+        sourceObject: force.sourceObject,
         angle: dir.angle,
         isAlongSurface: dir.isAlongSurface,
         isPerpendicular: dir.isPerpendicular,
@@ -70,8 +76,10 @@ const AddForcePanel: React.FC<AddForcePanelProps> = ({
   const handleSelectDirection = (dir: DirectionOption) => {
     if (!selectedForce) return;
     onConfirm({
+      id: selectedForce.id,
       type: selectedForce.type,
       label: selectedForce.symbol,
+      sourceObject: selectedForce.sourceObject,
       angle: dir.angle,
       isAlongSurface: dir.isAlongSurface,
       isPerpendicular: dir.isPerpendicular,
@@ -87,8 +95,15 @@ const AddForcePanel: React.FC<AddForcePanelProps> = ({
   };
 
   // 判断某类型力是否已在当前阶段添加过（uniquePerStage 约束）
-  const isAdded = (type: ForceType) =>
-    existingForces.some((f) => f.type === type);
+  const isAdded = (forceOpt: ForceOption) => {
+    if (forceOpt.uniquePerStage === false) return false;
+    return existingForces.some((f) => {
+      if (forceOpt.id && f.id === forceOpt.id) return true;
+      if (forceOpt.sourceObject && f.type === forceOpt.type && f.sourceObject === forceOpt.sourceObject) return true;
+      if (!forceOpt.id && !forceOpt.sourceObject && f.type === forceOpt.type && !f.sourceObject) return true;
+      return false;
+    });
+  };
 
   return (
     <div
@@ -137,11 +152,11 @@ const AddForcePanel: React.FC<AddForcePanelProps> = ({
       {/* Step 1：选择力类型 */}
       {step === 'select-type' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-          {availableForces.map((force) => {
-            const added = isAdded(force.type);
+          {availableForces.map((force, index) => {
+            const added = isAdded(force);
             return (
               <button
-                key={force.type}
+                key={force.id || force.type + index}
                 onClick={() => !added && handleSelectType(force)}
                 disabled={added}
                 style={{
@@ -189,11 +204,6 @@ const AddForcePanel: React.FC<AddForcePanelProps> = ({
                   }}
                 >
                   {force.label}
-                  {force.isFake && (
-                    <span style={{ fontSize: '0.7rem', color: 'rgba(192,132,252,0.6)', marginLeft: 6 }}>
-                      ⚠ 效果力
-                    </span>
-                  )}
                 </span>
                 {added ? (
                   <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)' }}>已添加</span>

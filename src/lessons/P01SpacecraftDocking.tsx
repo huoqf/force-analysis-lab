@@ -78,7 +78,7 @@ const FORCES_WHOLE: ForceConfig[] = [
   {
     key: 'fake-centripetal',
     type: 'FakeForce',
-    label: '向心力 F 向心 ⚠ 效果力',
+    label: '向心力 F 向心',
     symbol: '向心力',
     color: '#a78bfa',
     isDistractor: true,
@@ -142,7 +142,7 @@ const FORCES_STATION: ForceConfig[] = [
   {
     key: 'fake-centripetal',
     type: 'FakeForce',
-    label: '向心力 F 向心 ⚠ 效果力',
+    label: '向心力 F 向心',
     symbol: '向心力',
     color: '#a78bfa',
     isDistractor: true,
