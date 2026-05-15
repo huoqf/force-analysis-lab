@@ -1,52 +1,219 @@
 {
   "id": "p03",
-  "title": "竖直半圆轨道最高点",
-  "source": "2024 北京高考物理第 7 题。",
-  "scenario": "光滑水平轨道与竖直面内的光滑半圆轨道平滑连接，小物体由弹簧释放后进入半圆轨道，恰好到达最高点 C。判断最高点受力和向心加速度。",
+  "title": "斜面入圆轨的竖直圆周运动",
+  "source": "根据 2024 北京高考物理第 7 题及同类竖直圆周运动综合题改编。",
+  "scenario": "光滑斜面与竖直面内的光滑半圆轨道平滑连接，小球从斜面上不同高度由静止释放后进入圆轨。根据释放高度不同，小球可能出现三种典型状态：①高度不足，无法到达最高点；②恰好到达最高点；③以更大速度通过最高点。系统支持在最高点 C、侧点 B 以及任意点 P 暂停观察，并要求学生分析受力与向心加速度。",
   "studentTasks": [
-    { "label": "画物体在最高点 C 的受力图", "target": "最高点受力图" },
-    { "label": "根据受力图说明向心加速度大小", "target": "向心加速度推导" }
+    {
+      "label": "判断小球是否能到达最高点，并判断对应状态（无法到顶 / 临界到顶 / 高速过顶）",
+      "target": "状态判断"
+    },
+    {
+      "label": "画小球在最高点 C 的受力图（临界到顶状态）",
+      "target": "最高点临界受力图"
+    },
+    {
+      "label": "画小球在最高点 C 的受力图（高速过顶状态）",
+      "target": "最高点过顶受力图"
+    },
+    {
+      "label": "画小球在侧点 B 的受力图",
+      "target": "侧点受力图"
+    },
+    {
+      "label": "画小球在任意点 P 的受力图（仍与轨道接触）",
+      "target": "任意点受力图"
+    }
   ],
   "judgeRules": [
     {
-      "expect": "必须画出重力",
-      "hintWhenWrong": "物体在任何位置都受重力作用，最高点也不例外，重力竖直向下",
+      "expect": "临界到顶时必须画出重力",
+      "hintWhenWrong": "物体在最高点仍然受重力作用，方向始终竖直向下。",
       "ruleType": "FORCE_PRESENT",
       "ruleParams": {
         "forceType": "Gravity"
       },
-      "appliesTo": "最高点受力图"
+      "appliesTo": "最高点临界受力图"
     },
     {
-      "expect": "重力方向应竖直向下（270°）",
-      "hintWhenWrong": "重力方向始终竖直向下，与物体所在位置和运动状态无关",
+      "expect": "临界到顶时重力方向应竖直向下（270°）",
+      "hintWhenWrong": "重力方向始终竖直向下，与物体的位置和运动状态无关。",
       "ruleType": "DIRECTION_CHECK",
       "ruleParams": {
         "forceType": "Gravity",
         "expectedAngle": 270
       },
-      "appliesTo": "最高点受力图"
+      "appliesTo": "最高点临界受力图"
     },
-    { 
-      "expect": "不能画轨道支持力", 
-      "hintWhenWrong": "恰好到达最高点时为临界状态，轨道对物体弹力恰好为零，不存在支持力",
+    {
+      "expect": "临界到顶时不能画轨道支持力",
+      "hintWhenWrong": "恰好到达最高点时属于临界状态，轨道对物体的弹力恰好为零。",
       "ruleType": "FORCE_ABSENT",
       "ruleParams": {
         "forceType": "Normal"
       },
-      "appliesTo": "最高点受力图"
+      "appliesTo": "最高点临界受力图"
     },
-    { 
-      "expect": "不能将\"向心力\"作为一个独立的力画出", 
-      "hintWhenWrong": "向心力不是一种独立真实力，它是重力（此处）指向圆心的合力效果",
+    {
+      "expect": "临界到顶时不能把向心力作为独立真实力画出",
+      "hintWhenWrong": "向心力不是独立真实力，而是合力指向圆心的效果；这里由重力单独提供向心效果。",
       "ruleType": "NO_FAKE_FORCE",
       "ruleParams": {
-        "fakeNames": ["向心力", "CentripetalForce"]
+        "fakeNames": [
+          "向心力",
+          "CentripetalForce",
+          "离心力",
+          "CentrifugalForce"
+        ]
       },
-      "appliesTo": "最高点受力图"
+      "appliesTo": "最高点临界受力图"
+    },
+    {
+      "expect": "高速过顶时必须画出重力",
+      "hintWhenWrong": "物体在最高点仍然受重力作用，方向始终竖直向下。",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Gravity"
+      },
+      "appliesTo": "最高点过顶受力图"
+    },
+    {
+      "expect": "高速过顶时重力方向应竖直向下（270°）",
+      "hintWhenWrong": "重力方向始终竖直向下，与物体的位置和运动状态无关。",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": {
+        "forceType": "Gravity",
+        "expectedAngle": 270
+      },
+      "appliesTo": "最高点过顶受力图"
+    },
+    {
+      "expect": "高速过顶时必须画出轨道支持力",
+      "hintWhenWrong": "当小球仍以较大速度通过最高点时，轨道对它仍有支持力，不能漏画。",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Normal"
+      },
+      "appliesTo": "最高点过顶受力图"
+    },
+    {
+      "expect": "高速过顶时支持力方向应指向圆心（270°）",
+      "hintWhenWrong": "最高点处圆心在物体正下方，因此轨道支持力方向竖直向下。",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": {
+        "forceType": "Normal",
+        "expectedAngle": 270
+      },
+      "appliesTo": "最高点过顶受力图"
+    },
+    {
+      "expect": "高速过顶时不能把向心力作为独立真实力画出",
+      "hintWhenWrong": "向心力不是独立真实力，而是重力与支持力合成后指向圆心的效果。",
+      "ruleType": "NO_FAKE_FORCE",
+      "ruleParams": {
+        "fakeNames": [
+          "向心力",
+          "CentripetalForce",
+          "离心力",
+          "CentrifugalForce"
+        ]
+      },
+      "appliesTo": "最高点过顶受力图"
+    },
+    {
+      "expect": "侧点受力图中必须画出重力",
+      "hintWhenWrong": "物体在圆轨任意位置都受重力作用，方向始终竖直向下。",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Gravity"
+      },
+      "appliesTo": "侧点受力图"
+    },
+    {
+      "expect": "侧点受力图中重力方向应竖直向下（270°）",
+      "hintWhenWrong": "重力方向始终竖直向下，与物体所在位置无关。",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": {
+        "forceType": "Gravity",
+        "expectedAngle": 270
+      },
+      "appliesTo": "侧点受力图"
+    },
+    {
+      "expect": "侧点受力图中必须画出轨道支持力",
+      "hintWhenWrong": "只要小球仍与圆轨接触，就一定受到轨道支持力。",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Normal"
+      },
+      "appliesTo": "侧点受力图"
+    },
+    {
+      "expect": "侧点受力图中不能把向心力作为独立真实力画出",
+      "hintWhenWrong": "向心力不是一种独立真实力，它是合力指向圆心的效果。",
+      "ruleType": "NO_FAKE_FORCE",
+      "ruleParams": {
+        "fakeNames": [
+          "向心力",
+          "CentripetalForce",
+          "离心力",
+          "CentrifugalForce"
+        ]
+      },
+      "appliesTo": "侧点受力图"
+    },
+    {
+      "expect": "任意点受力图中必须画出重力",
+      "hintWhenWrong": "物体在圆轨任意位置都受重力作用，方向始终竖直向下。",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Gravity"
+      },
+      "appliesTo": "任意点受力图"
+    },
+    {
+      "expect": "任意点受力图中重力方向应竖直向下（270°）",
+      "hintWhenWrong": "重力方向始终竖直向下，与物体所在位置无关。",
+      "ruleType": "DIRECTION_CHECK",
+      "ruleParams": {
+        "forceType": "Gravity",
+        "expectedAngle": 270
+      },
+      "appliesTo": "任意点受力图"
+    },
+    {
+      "expect": "任意点受力图中只要仍与轨道接触就必须画出支持力",
+      "hintWhenWrong": "只要小球仍与圆轨接触，就一定受到轨道支持力。",
+      "ruleType": "FORCE_PRESENT",
+      "ruleParams": {
+        "forceType": "Normal"
+      },
+      "appliesTo": "任意点受力图"
+    },
+    {
+      "expect": "任意点受力图中不能把向心力作为独立真实力画出",
+      "hintWhenWrong": "向心力不是一种独立真实力，它是重力与支持力合力指向圆心的效果。",
+      "ruleType": "NO_FAKE_FORCE",
+      "ruleParams": {
+        "fakeNames": [
+          "向心力",
+          "CentripetalForce",
+          "离心力",
+          "CentrifugalForce"
+        ]
+      },
+      "appliesTo": "任意点受力图"
     }
   ],
-  "analysis": "最高点由重力提供向心效果，mg=m\\frac{v^2}{r}，所以 a_n=g，速度不为零。",
-  "trainingTags": ["竖直圆周运动", "临界条件", "真实力与效果力区分"],
-  "difficultyLayer": 3
+  "analysis": "先用机械能守恒判断是否到达最高点，再用圆周运动方程分析关键点受力。设圆轨半径为 R，若恰好到达最高点 C，则临界条件为 mg = mv^2/R，此时 N = 0，所以最高点只画重力，不画支持力，也不能把向心力当作独立真实力。若高速通过最高点，则满足 N + mg = mv^2/R，最高点应同时画出重力和支持力，且二者方向都指向圆心。对任意点 P（设圆心角 θ 从最高点起算），且仍与轨道接触时，径向方程可写为 N + mg cosθ = mv^2/R，脱轨临界条件为 N = 0。因此本题的核心是：先判状态，再画真实力，最后由合力提供向心效果。",
+  "trainingTags": [
+    "斜面入圆轨",
+    "竖直圆周运动",
+    "能量守恒",
+    "临界条件",
+    "脱轨判断",
+    "真实力与效果力区分",
+    "任意点受力分析"
+  ],
+  "difficultyLayer": 4
 }

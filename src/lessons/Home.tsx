@@ -135,7 +135,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     },
     {
       id: 'p03-vertical-circle-top',
-      title: '综合题：圆周最高点临界',
+      title: '综合题：斜面入圆轨的竖直圆周运动',
       desc: '深入理解临界态：恰好通过最高点时支持力的消失与效果力区分。',
       icon: <RotateCw className="text-rose-400" />,
       color: 'from-rose-500/20 to-rose-600/5'
