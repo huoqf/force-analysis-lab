@@ -1,17 +1,17 @@
 import React from 'react';
-import { BookOpen, Activity, Info, ChevronRight, Zap, RotateCw, Share2, Layers, MoveRight, Boxes } from 'lucide-react';
+import { BookOpen, Activity, Info, ChevronRight, Zap, RotateCw, Share2, Layers, MoveRight, Boxes, Target, Cpu, ArrowRight } from 'lucide-react';
 
 interface HomeProps {
   onNavigate: (page: string) => void;
 }
 
 const Home: React.FC<HomeProps> = ({ onNavigate }) => {
-  const cards = [
+  const allCards = [
     {
       id: 'seven-steps',
       title: '受力分析七步法',
-      desc: '掌握通用的力学解题思路，建立规范的分析习惯。',
-      icon: <BookOpen className="text-purple-400" />,
+      desc: '掌握通用的力学解题思路，建立规范的分析习惯。从研究对象选择到牛顿定律应用，全流程解析。',
+      icon: <BookOpen className="text-purple-400" size={28} />,
       color: 'from-purple-500/20 to-purple-600/5'
     },
     {
@@ -170,48 +170,164 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     }
   ];
 
-  return (
-    <div className="max-w-5xl mx-auto py-12 px-6">
-      <div className="text-center mb-16 space-y-4">
-        <h1 className="text-5xl font-extrabold bg-gradient-to-r from-win11-blue to-cyan-400 bg-clip-text text-transparent">
-          ForceAnalysis Lab
-        </h1>
-        <p className="text-xl text-white/60">
-          交互式高中物理受力分析实验平台
-        </p>
-      </div>
+  const categories = [
+    {
+      id: 'linear',
+      title: '直线运动与平衡模型',
+      subtitle: 'Linear Motion & Equilibrium',
+      icon: <Layers className="text-blue-400" size={24} />,
+      items: [
+        'horizontal-static', 'incline-frictionless', 'rough-horizontal', 'rough-incline',
+        'connected-horizontal', 'connected-pulley', 'connected-triple', 'atwood', 'moving-pulley'
+      ]
+    },
+    {
+      id: 'circular',
+      title: '圆周运动模型',
+      subtitle: 'Circular Motion Models',
+      icon: <RotateCw className="text-pink-400" size={24} />,
+      items: [
+        'circular-horizontal', 'conical-pendulum', 'vertical-circular', 'arch-bridge', 'concave-bridge'
+      ]
+    },
+    {
+      id: 'comprehensive',
+      title: '综合实战题库',
+      subtitle: 'Comprehensive Practice',
+      icon: <Cpu className="text-emerald-400" size={24} />,
+      items: [
+        'p01-spacecraft-docking', 'p02-conveyor-belt', 'p03-vertical-circle-top', 'p04-vertical-lift',
+        'p05-triple-blocks', 'p06-electric-deflection', 'p07-incline-slide-up', 'p08-incline-pulley'
+      ]
+    }
+  ];
 
-      <div className="grid md:grid-cols-3 gap-6">
-        {cards.map((card) => (
+  const heroItem = allCards.find(c => c.id === 'seven-steps')!;
+
+  return (
+    <div className="min-h-screen relative overflow-hidden bg-[#050505]">
+      {/* Background Blobs for Visual Depth */}
+      <div className="absolute top-[-10%] left-[-5%] w-[45%] h-[45%] bg-win11-blue/10 rounded-full blur-[120px] animate-blob pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-5%] w-[45%] h-[45%] bg-purple-600/5 rounded-full blur-[120px] animate-blob pointer-events-none [animation-delay:4s]" />
+      <div className="absolute top-[40%] left-[20%] w-[30%] h-[30%] bg-cyan-500/5 rounded-full blur-[100px] animate-blob pointer-events-none [animation-delay:2s]" />
+
+      <div className="max-w-6xl mx-auto py-20 px-6 relative z-10">
+        {/* Hero Section */}
+        <div className="text-center mb-20 space-y-6">
+          <div className="inline-block px-4 py-1 rounded-full bg-win11-blue/10 border border-win11-blue/20 text-win11-blue text-sm font-medium mb-4">
+            Interactive Physics Learning
+          </div>
+          <h1 className="text-6xl md:text-7xl font-black tracking-tight bg-gradient-to-br from-white via-white to-white/40 bg-clip-text text-transparent">
+            ForceAnalysis <span className="bg-gradient-to-r from-win11-blue to-cyan-400 bg-clip-text">Lab</span>
+          </h1>
+          <p className="text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
+            基于物理引擎的交互式受力分析实验平台，助你建立直观、规范的物理思维。
+          </p>
+        </div>
+
+        {/* Feature Section (Method) */}
+        <section className="mb-24">
           <button
-            key={card.id}
-            onClick={() => onNavigate(card.id)}
-            className={`glass-panel p-8 text-left group hover:scale-[1.02] transition-all duration-300 relative overflow-hidden`}
+            onClick={() => onNavigate(heroItem.id)}
+            className="w-full glass-panel p-8 md:p-12 text-left group flex flex-col md:flex-row items-center gap-8 relative overflow-hidden"
           >
-            <div className={`absolute inset-0 bg-gradient-to-br ${card.color} opacity-50`} />
-            <div className="relative z-10">
-              <div className="mb-6 p-3 bg-white/5 rounded-xl w-fit group-hover:scale-110 transition-transform">
-                {card.icon}
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/5 opacity-50 group-hover:opacity-80 transition-opacity" />
+            <div className="relative z-10 flex-1 space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="p-4 bg-purple-500/10 rounded-2xl text-purple-400 group-hover:scale-110 transition-transform">
+                  {heroItem.icon}
+                </div>
+                <div>
+                  <h2 className="text-3xl font-bold text-white mb-1">{heroItem.title}</h2>
+                  <p className="text-purple-400/80 font-medium">Core Methodology</p>
+                </div>
               </div>
-              <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
-                {card.title}
-                <ChevronRight size={18} className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
-              </h3>
-              <p className="text-white/50 text-sm leading-relaxed">
-                {card.desc}
+              <p className="text-lg text-white/60 leading-relaxed max-w-xl">
+                {heroItem.desc}
               </p>
+              <div className="flex items-center gap-2 text-win11-blue font-bold group-hover:gap-4 transition-all">
+                立即开始学习 <ArrowRight size={20} />
+              </div>
+            </div>
+            <div className="relative z-10 w-full md:w-1/3 flex justify-center">
+              <div className="w-48 h-48 rounded-full border-4 border-dashed border-white/5 flex items-center justify-center animate-[spin_20s_linear_infinite]">
+                <Target className="text-white/10" size={80} />
+              </div>
+              <BookOpen className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-purple-400/40" size={60} />
             </div>
           </button>
-        ))}
-      </div>
+        </section>
 
-      <div className="mt-16 glass-panel p-6 flex items-center gap-4 border-win11-blue/20">
-        <div className="bg-win11-blue/10 p-3 rounded-full text-win11-blue">
-          <Info size={24} />
+        {/* Categorized Sections */}
+        <div className="space-y-24">
+          {categories.map((category) => (
+            <section key={category.id} className="space-y-10">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-white/5">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-white/5 rounded-xl text-white/80">
+                    {category.icon}
+                  </div>
+                  <div>
+                    <h2 className="text-3xl font-bold text-white/90 tracking-tight">{category.title}</h2>
+                    <p className="text-sm text-white/40 font-mono uppercase tracking-widest mt-1">{category.subtitle}</p>
+                  </div>
+                </div>
+                <div className="text-sm text-white/30 hidden md:block">
+                  {category.items.length} 个模型可用
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {category.items.map(itemId => {
+                  const card = allCards.find(c => c.id === itemId);
+                  if (!card) return null;
+                  return (
+                    <button
+                      key={card.id}
+                      onClick={() => onNavigate(card.id)}
+                      className="glass-panel p-6 text-left group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden flex flex-col h-full min-h-[180px]"
+                    >
+                      <div className={`absolute inset-0 bg-gradient-to-br ${card.color} opacity-40 group-hover:opacity-70 transition-opacity duration-500`} />
+                      <div className="relative z-10 flex flex-col h-full">
+                        <div className="flex items-start justify-between mb-6">
+                          <div className="p-3 bg-white/5 rounded-xl w-fit group-hover:bg-white/10 transition-colors">
+                            {card.icon}
+                          </div>
+                          <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-500">
+                            <ChevronRight size={18} className="text-white" />
+                          </div>
+                        </div>
+                        <h3 className="text-xl font-bold mb-3 text-white/90 group-hover:text-white transition-colors">
+                          {card.title}
+                        </h3>
+                        <p className="text-white/40 text-sm leading-relaxed mt-auto group-hover:text-white/60 transition-colors">
+                          {card.desc}
+                        </p>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+          ))}
         </div>
-        <div>
-          <h4 className="font-bold">教学提示</h4>
-          <p className="text-sm text-white/60">点击上方卡片开始学习。建议从“七步法”开始，逐步深入到交互模型。</p>
+
+        {/* Improved Footer Info */}
+        <div className="mt-32 glass-panel p-8 flex flex-col md:flex-row items-center gap-6 border-win11-blue/10 bg-gradient-to-r from-win11-blue/5 to-transparent">
+          <div className="bg-win11-blue/20 p-4 rounded-2xl text-win11-blue shrink-0">
+            <Info size={32} />
+          </div>
+          <div className="flex-1 text-center md:text-left">
+            <h4 className="text-xl font-bold text-white mb-2">教学建议 & 指引</h4>
+            <p className="text-white/50 leading-relaxed">
+              建议初学者先通读“七步法”核心方法论，随后按照“直线运动”→“圆周运动”→“综合实战”的顺序逐步进阶。每个模型都支持实时受力绘制与参数调整。
+            </p>
+          </div>
+          <div className="flex gap-4">
+             <div className="px-4 py-2 bg-white/5 rounded-lg border border-white/5 text-xs text-white/40">
+               Version 1.2.0
+             </div>
+          </div>
         </div>
       </div>
     </div>
